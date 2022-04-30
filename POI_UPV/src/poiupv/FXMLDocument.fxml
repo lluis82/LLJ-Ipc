@@ -81,6 +81,7 @@
       </SplitPane>
       <HBox alignment="CENTER_RIGHT">
          <children>
+            <Button mnemonicParsing="false" text="Button" />
             <Label fx:id="posicion" minHeight="-Infinity" minWidth="-Infinity" text="SceneX:     ScenY:     " wrapText="true" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
