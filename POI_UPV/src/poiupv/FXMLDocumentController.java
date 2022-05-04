@@ -28,6 +28,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import poiupv.Poi;
@@ -68,6 +69,8 @@ public class FXMLDocumentController implements Initializable {
     private ImageView buttonText;
     @FXML
     private ImageView imageviewCarta;
+    @FXML
+    private Circle circlePunto1;
 
     @FXML
     void zoomIn(ActionEvent event) {
@@ -152,6 +155,8 @@ public class FXMLDocumentController implements Initializable {
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
         
+        buttonPoint.setOnAction((event)->{colocarPunto();});
+        
         
 
     }
@@ -175,11 +180,14 @@ public class FXMLDocumentController implements Initializable {
         mensaje.showAndWait();
     }
     
-    //@FXML
-    //private void colocarPunto(ActionEvent){
+    private void colocarPunto(){
         //listener sobre imageview de la Carta Nautica para recuper las coordenadas de un click
-        //imageviewCarta.setOnMouseClicked(e -> {
-            //System.out.println("["+e.getX()+", "+e.getY()+"]");});
-    //}
+        imageviewCarta.setOnMouseClicked(e -> {
+            circlePunto1.setTranslateX(e.getX());
+            circlePunto1.setTranslateX(e.getY());
+            circlePunto1.visibleProperty();});
+        
+        
+    }
 
 }
