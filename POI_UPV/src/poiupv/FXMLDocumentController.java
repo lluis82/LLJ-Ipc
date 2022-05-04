@@ -18,12 +18,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -56,6 +58,16 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem pin_info;
     @FXML
     private Label posicion;
+    @FXML
+    private Button buttonPoint;
+    @FXML
+    private ImageView buttonLine;
+    @FXML
+    private ImageView buttonArch;
+    @FXML
+    private ImageView buttonText;
+    @FXML
+    private ImageView imageviewCarta;
 
     @FXML
     void zoomIn(ActionEvent event) {
@@ -139,6 +151,8 @@ public class FXMLDocumentController implements Initializable {
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
+        
+        
 
     }
 
@@ -160,5 +174,12 @@ public class FXMLDocumentController implements Initializable {
         mensaje.setHeaderText("IPC - 2022");
         mensaje.showAndWait();
     }
+    
+    //@FXML
+    //private void colocarPunto(ActionEvent){
+        //listener sobre imageview de la Carta Nautica para recuper las coordenadas de un click
+        //imageviewCarta.setOnMouseClicked(e -> {
+            //System.out.println("["+e.getX()+", "+e.getY()+"]");});
+    //}
 
 }
