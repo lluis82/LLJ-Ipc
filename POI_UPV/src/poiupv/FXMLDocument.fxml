@@ -15,6 +15,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
@@ -27,19 +28,25 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="Fichero">
+                <Menu text="_Fichero">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#cerrarAplicacion" text="Cerrar" />
+                    <MenuItem onAction="#cerrarAplicacion" text="_Cerrar" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Editar">
+                <Menu text="_Editar">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Borrar" />
+                    <MenuItem text="_Borrar">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#acercaDe" text="Acerca de" />
+                    <MenuItem mnemonicParsing="false" onAction="#acercaDe" text="Acerca de">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
                   </items>
                 </Menu>
               </menus>
@@ -87,7 +94,7 @@
             </ToolBar>
             <Label text="Zoom" />
             <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
-            <Slider fx:id="zoom_slider" HBox.hgrow="SOMETIMES" />
+            <Slider fx:id="zoom_slider" blockIncrement="0.1" max="0.8" min="0.12" value="0.46" HBox.hgrow="SOMETIMES" />
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" text="+" />
          </children>
          <VBox.margin>

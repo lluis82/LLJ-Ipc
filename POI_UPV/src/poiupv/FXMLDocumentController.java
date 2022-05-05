@@ -78,13 +78,13 @@ public class FXMLDocumentController implements Initializable {
         // el incremento del zoom dependerá de los parametros del 
         // slider y del resultado esperado
         double sliderVal = zoom_slider.getValue();
-        zoom_slider.setValue(sliderVal += 0.1);
+        zoom_slider.setValue(sliderVal += ((0.8-0.12)/10));
     }
 
     @FXML
     void zoomOut(ActionEvent event) {
         double sliderVal = zoom_slider.getValue();
-        zoom_slider.setValue(sliderVal + -0.1);
+        zoom_slider.setValue(sliderVal + -((0.8-0.12)/10));
     }
     
     // esta funcion es invocada al cambiar el value del slider zoom_slider
@@ -129,10 +129,10 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void initData() {
-        hm.put("2F", new Poi("2F", "Edificion del DSIC", 325, 225));
-        hm.put("Agora", new Poi("Agora", "Agora", 600, 360));
-        map_listview.getItems().add(hm.get("2F"));
-        map_listview.getItems().add(hm.get("Agora"));
+        hm.put("ELIMINAR_1", new Poi("ELIMINAR_1", "eliminar1", 325, 225));
+        hm.put("ELIMINAR_2", new Poi("ELIMINAR_2", "eliminar2", 600, 360));
+        map_listview.getItems().add(hm.get("ELIMINAR_1"));
+        map_listview.getItems().add(hm.get("ELIMINAR_2"));
     }
 
     @Override
@@ -142,8 +142,8 @@ public class FXMLDocumentController implements Initializable {
         //==========================================================
         // inicializamos el slider y enlazamos con el zoom
         zoom_slider.setMin(0.12);
-        zoom_slider.setMax(1.3);
-        zoom_slider.setValue(0.5);
+        zoom_slider.setMax(0.8);
+        zoom_slider.setValue(0.46);
         zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
         
         //=========================================================================
@@ -169,6 +169,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void cerrarAplicacion(ActionEvent event) {
+        Alert mensaje= new Alert(Alert.AlertType.INFORMATION);
+        mensaje.setTitle("¿Está seguro?");
+        mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
+        mensaje.showAndWait();
         ((Stage)zoom_slider.getScene().getWindow()).close();
     }
 
