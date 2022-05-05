@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox prefHeight="665.0" prefWidth="723.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="605.0" prefWidth="935.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -35,9 +35,9 @@
                 </Menu>
                 <Menu text="_Editar">
                   <items>
-                    <MenuItem text="_Borrar">
+                    <MenuItem onAction="#borrarMapa" text="_Borrar">
                            <accelerator>
-                              <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="DELETE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator></MenuItem>
                   </items>
                 </Menu>

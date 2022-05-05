@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -19,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
@@ -169,11 +171,18 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void cerrarAplicacion(ActionEvent event) {
-        Alert mensaje= new Alert(Alert.AlertType.INFORMATION);
-        mensaje.setTitle("¿Está seguro?");
-        mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
-        mensaje.showAndWait();
-        ((Stage)zoom_slider.getScene().getWindow()).close();
+//        if (/* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */) {
+            Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
+            mensaje.setTitle("Cerrar aplicación");
+            mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
+            mensaje.setContentText("Podría llegar a perder información si está realizando un test.\n");
+            Optional<ButtonType> result = mensaje.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                ((Stage) zoom_slider.getScene().getWindow()).close();
+            }
+//        } else {
+//            ((Stage) zoom_slider.getScene().getWindow()).close();
+//        }
     }
 
     @FXML
@@ -191,6 +200,19 @@ public class FXMLDocumentController implements Initializable {
             circlePunto1.setTranslateX(e.getY());
             circlePunto1.visibleProperty();});
         
+    }
+
+    @FXML
+    private void borrarMapa(ActionEvent event) {
+//      if (/* Solo si el mapa tiene algo dibujado/escrito */) {
+            Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
+            mensaje.setTitle("Borrar dibujado");
+            mensaje.setHeaderText("¿Seguro que quiere borrar todo lo apuntado en el mapa?");
+            Optional<ButtonType> result = mensaje.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                //Borrar todo lo dibujado/escrito
+            }
+//      }
     }
 
 }
