@@ -141,9 +141,9 @@ public class FXMLDocumentController implements Initializable {
         initData();
         //==========================================================
         // inicializamos el slider y enlazamos con el zoom
-        zoom_slider.setMin(0.5);
-        zoom_slider.setMax(1.5);
-        zoom_slider.setValue(1.0);
+        zoom_slider.setMin(0.12);
+        zoom_slider.setMax(1.3);
+        zoom_slider.setValue(0.5);
         zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
         
         //=========================================================================
