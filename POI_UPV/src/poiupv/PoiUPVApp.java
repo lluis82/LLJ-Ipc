@@ -5,11 +5,17 @@
  */
 package poiupv;
 
+import java.util.Optional;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -22,9 +28,10 @@ public class PoiUPVApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
-        stage.setTitle("Puntos de interes UPV");
+        stage.setTitle("Mapa y tests");
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(this::handleStageClosed);
     }
 
     /**
@@ -32,6 +39,22 @@ public class PoiUPVApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void handleStageClosed(WindowEvent event) {
+        // Lanza aviso solamente si el usuario está realizando un test o el mapa tiene algo dibujado/escrito en él
+//        if (/* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */) {
+            Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
+            mensaje.setTitle("Cerrar aplicación");
+            mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
+            mensaje.setContentText("Podría llegar a perder información si está realizando un test.\n");
+            Optional<ButtonType> result = mensaje.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Platform.exit();
+            }
+//        } else {
+//            ((Stage) zoom_slider.getScene().getWindow()).close();
+//        }
     }
     
 }

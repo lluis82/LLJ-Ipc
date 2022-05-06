@@ -32,6 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import poiupv.Poi;
 
@@ -162,9 +163,6 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setContent(contentGroup);
         
         buttonPoint.setOnMouseClicked(this::colocarPunto);
-        
-        
-
     }
 
     @FXML
@@ -175,6 +173,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void cerrarAplicacion(ActionEvent event) {
+        // Lanza aviso solamente si el usuario está realizando un test o el mapa tiene algo dibujado/escrito en él
 //        if (/* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */) {
             Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
             mensaje.setTitle("Cerrar aplicación");
@@ -188,7 +187,7 @@ public class FXMLDocumentController implements Initializable {
 //            ((Stage) zoom_slider.getScene().getWindow()).close();
 //        }
     }
-
+    
     @FXML
     private void acercaDe(ActionEvent event) {
         Alert mensaje= new Alert(Alert.AlertType.INFORMATION);
@@ -228,6 +227,12 @@ public class FXMLDocumentController implements Initializable {
         x = event.getX();
         y = event.getY();
         labelSelected.setText("X: " + x + "\n" + "Y: " + y);
+    }
+
+    private static class stage {
+
+        public stage() {
+        }
     }
 
 
