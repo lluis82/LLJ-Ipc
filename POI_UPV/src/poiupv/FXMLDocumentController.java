@@ -174,7 +174,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void cerrarAplicacion(ActionEvent event) {
         // Lanza aviso solamente si el usuario está realizando un test o el mapa tiene algo dibujado/escrito en él
-//        if (/* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */) {
+        /* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */
+//        if (isOnTest || isMapDrawn) {
             Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
             mensaje.setTitle("Cerrar aplicación");
             mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
@@ -198,7 +199,8 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void borrarMapa(ActionEvent event) {
-//      if (/* Solo si el mapa tiene algo dibujado/escrito */) {
+        /* Solo si el mapa tiene algo dibujado/escrito */
+//      if (isMapDrawn) {
             Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
             mensaje.setTitle("Borrar dibujado");
             mensaje.setHeaderText("¿Seguro que quiere borrar todo lo apuntado en el mapa?");
@@ -228,12 +230,4 @@ public class FXMLDocumentController implements Initializable {
         y = event.getY();
         labelSelected.setText("X: " + x + "\n" + "Y: " + y);
     }
-
-    private static class stage {
-
-        public stage() {
-        }
-    }
-
-
 }

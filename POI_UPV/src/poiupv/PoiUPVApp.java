@@ -8,7 +8,6 @@ package poiupv;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,13 +24,13 @@ public class PoiUPVApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLSignUp.fxml"));
         
         Scene scene = new Scene(root);
-        stage.setTitle("Mapa y tests");
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(this::handleStageClosed);
+        //stage.setOnCloseRequest(this::handleStageClosed);
     }
 
     /**
@@ -41,20 +40,20 @@ public class PoiUPVApp extends Application {
         launch(args);
     }
 
-    private void handleStageClosed(WindowEvent event) {
-        // Lanza aviso solamente si el usuario está realizando un test o el mapa tiene algo dibujado/escrito en él
-//        if (/* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */) {
-            Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
-            mensaje.setTitle("Cerrar aplicación");
-            mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
-            mensaje.setContentText("Podría llegar a perder información si está realizando un test.\n");
-            Optional<ButtonType> result = mensaje.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                Platform.exit();
-            }
-//        } else {
-//            ((Stage) zoom_slider.getScene().getWindow()).close();
-//        }
-    }
+//    private void handleStageClosed(WindowEvent event) {
+//        // Lanza aviso solamente si el usuario está realizando un test o el mapa tiene algo dibujado/escrito en él
+////        if (/* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */) {
+//            Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
+//            mensaje.setTitle("Cerrar aplicación");
+//            mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
+//            mensaje.setContentText("Podría llegar a perder información si está realizando un test.\n");
+//            Optional<ButtonType> result = mensaje.showAndWait();
+//            if (result.isPresent() && result.get() == ButtonType.OK) {
+//                Platform.exit();
+//            }
+////        } else {
+////            Platform.exit();
+////        }
+//    }
     
 }
