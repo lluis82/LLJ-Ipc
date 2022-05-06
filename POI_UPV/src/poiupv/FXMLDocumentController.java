@@ -73,6 +73,10 @@ public class FXMLDocumentController implements Initializable {
     private ImageView imageviewCarta;
     @FXML
     private Circle circlePunto1;
+    double x;
+    double y;
+    @FXML
+    private Label labelSelected;
 
     @FXML
     void zoomIn(ActionEvent event) {
@@ -157,7 +161,7 @@ public class FXMLDocumentController implements Initializable {
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
         
-        buttonPoint.setOnAction((event)->{colocarPunto();});
+        buttonPoint.setOnMouseClicked(this::colocarPunto);
         
         
 
@@ -192,15 +196,6 @@ public class FXMLDocumentController implements Initializable {
         mensaje.setHeaderText("IPC - 2022");
         mensaje.showAndWait();
     }
-    
-    private void colocarPunto(){
-        //listener sobre imageview de la Carta Nautica para recuper las coordenadas de un click
-        imageviewCarta.setOnMouseClicked(e -> {
-            circlePunto1.setTranslateX(e.getX());
-            circlePunto1.setTranslateX(e.getY());
-            circlePunto1.visibleProperty();});
-        
-    }
 
     @FXML
     private void borrarMapa(ActionEvent event) {
@@ -214,5 +209,26 @@ public class FXMLDocumentController implements Initializable {
             }
 //      }
     }
+
+    @FXML
+    private void colocarPunto(MouseEvent event) {
+//        imageviewCarta.setOnMouseClicked(e -> {
+ //           x = e.getSceneX();
+//            y = e.getSceneY();
+            
+//       });
+        circlePunto1.setTranslateX(x);
+        circlePunto1.setTranslateY(y);
+        circlePunto1.setVisible(true);
+        
+    }
+
+    @FXML
+    private void getCoords(MouseEvent event) {
+        x = event.getX();
+        y = event.getY();
+        labelSelected.setText("X: " + x + "\n" + "Y: " + y);
+    }
+
 
 }

@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox prefHeight="605.0" prefWidth="935.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="605.0" prefWidth="935.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -108,7 +108,7 @@
                <content>
                   <Pane>
                      <children>
-                        <ImageView fx:id="imageviewCarta" layoutX="-117.0" layoutY="-210.0" pickOnBounds="true">
+                        <ImageView fx:id="imageviewCarta" layoutX="-117.0" layoutY="-210.0" onMousePressed="#getCoords" pickOnBounds="true">
                            <image>
                               <Image url="@../resources/carta_nautica.jpg" />
                            </image>
@@ -122,7 +122,7 @@
                               <String fx:value="map-pin" />
                            </styleClass>
                         </MenuButton>
-                        <Circle fx:id="circlePunto1" fill="DODGERBLUE" layoutX="24.0" layoutY="27.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                        <Circle fx:id="circlePunto1" fill="DODGERBLUE" layoutX="24.0" layoutY="27.0" onMouseClicked="#colocarPunto" radius="13.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                      </children>
                   </Pane>
                </content>
@@ -131,6 +131,12 @@
       </SplitPane>
       <HBox alignment="CENTER_RIGHT">
          <children>
+            <Label text="Selected: " />
+            <Label fx:id="labelSelected">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Label>
             <Label fx:id="posicion" minHeight="-Infinity" minWidth="-Infinity" text="SceneX:     ScenY:     " wrapText="true" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
