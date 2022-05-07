@@ -55,6 +55,7 @@ public class FXMLSignUpController implements Initializable {
     private Button bAccept;
     @FXML
     private Button bCancel;
+   
     
    
     
@@ -89,7 +90,7 @@ public class FXMLSignUpController implements Initializable {
      * makes the error label visible
      * @param errorLabel
      * @param textField 
-     */
+     **/
     private void showErrorMessage(Label errorLabel,TextField textField)
     {
         errorLabel.visibleProperty().set(true);

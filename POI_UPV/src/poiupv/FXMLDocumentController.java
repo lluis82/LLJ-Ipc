@@ -218,9 +218,12 @@ public class FXMLDocumentController implements Initializable {
 //            y = e.getSceneY();
             
 //       });
-        circlePunto1.setTranslateX(x);
-        circlePunto1.setTranslateY(y);
+        double x_ini = event.getSceneX();
+        double y_ini = event.getSceneY();
+        circlePunto1.getTranslateX();
+        circlePunto1.getTranslateY();
         circlePunto1.setVisible(true);
+        event.consume();
         
     }
 
