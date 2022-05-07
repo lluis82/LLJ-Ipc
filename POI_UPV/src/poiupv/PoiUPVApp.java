@@ -24,8 +24,8 @@ public class PoiUPVApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLSignUp.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLSignUp.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Login");
         stage.setScene(scene);

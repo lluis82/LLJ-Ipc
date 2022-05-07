@@ -5,21 +5,33 @@
  */
 package poiupv;
 
+import com.sun.javafx.logging.PlatformLogger.Level;
+import java.io.IOException;
+import java.lang.System.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 
 /**
@@ -132,48 +144,55 @@ public class FXMLSignUpController implements Initializable {
                  .and(equalPasswords);
          
 
-        eemail.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                checkEditEmail();
-            }
-        });
+//        eemail.focusedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue) {
+//                checkEditEmail();
+//            }
+//        });
+//        
+//        epassword.focusedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue) {
+//                checkEditPass();
+//            }
+//        });
+//        
+//        epassword2.focusedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue) {
+//                checkEquals();
+//            }
+//        });
         
-        epassword.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                checkEditPass();
-            }
-        });
-        
-        epassword2.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                checkEquals();
-            }
-        });
-        
-        bAccept.disableProperty().bind(
-                Bindings.not(validFields)
-        );
+//        bAccept.disableProperty().bind(
+//                Bindings.not(validFields)
+//        );
         
         bCancel.setOnAction((event) -> {
             bCancel.getScene().getWindow().hide();
         });
     } 
    
-    private void checkEditEmail() {
+    private boolean checkEditEmail() {
+        boolean correct = true;
         if (!Utils.checkEmail(eemail.textProperty().getValueSafe())) {
             manageError(lIncorrectEmail, eemail, validEmail);
+            correct = false;
         }
         else { manageCorrect(lIncorrectEmail, eemail, validEmail); }
+        return correct;
     }
     
-    private void checkEditPass() {
+    private boolean checkEditPass() {
+        boolean correct = true;
         if (!Utils.checkPassword(epassword.textProperty().getValueSafe())) {
             manageError(lIncorrectPass, epassword, validPassword);
+            correct = false;
         }
         else { manageCorrect(lIncorrectPass, epassword, validPassword); }
+        return correct;
     }
     
-    private void checkEquals() {
+    private boolean checkEquals() {
+        boolean correct = true;
         if (epassword.textProperty().getValueSafe().compareTo(
             epassword2.textProperty().getValueSafe()) != EQUALS) {
             
@@ -182,12 +201,23 @@ public class FXMLSignUpController implements Initializable {
             epassword.textProperty().setValue("");
             epassword2.textProperty().setValue("");
             epassword.requestFocus();
+            correct = false;
         }
         else { manageCorrect(lPassDifferent, epassword2, equalPasswords); }
+        return correct;
     }
 
     @FXML
-    private void handleBAcceptonAction(ActionEvent event) {
+    private void handleBAcceptonAction(ActionEvent event) throws IOException {
+        
+        if (checkEditEmail() ==  true) {
+            if (checkEditPass() == true) {
+                if (checkEquals() == true) {
+                    loadStage("/FXML/FXMLDocument.fxml", event);
+                }
+            }
+        }
+        
         eemail.textProperty().setValue("");
         epassword.textProperty().setValue("");
         epassword2.textProperty().setValue("");
@@ -195,5 +225,56 @@ public class FXMLSignUpController implements Initializable {
         validEmail.setValue(Boolean.FALSE);
         validPassword.setValue(Boolean.FALSE);
         equalPasswords.setValue(Boolean.FALSE);
+    }
+
+    private void loadStage(String fxmlDocumentfxml, ActionEvent event) throws IOException {
+        
+//         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlDocumentfxml));
+//
+//        Stage stage = (Stage) selectServices.getScene().getWindow();
+//        Scene scene = null;
+//
+//        try {
+//            scene = new Scene(loader.load(), 1173, 721);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        stage.setScene(scene);
+
+
+
+
+
+         
+
+
+
+
+
+
+            ((Node)(event.getSource())).getScene().getWindow().hide();    
+            
+            
+            Object eventSource = event.getSource(); 
+            Node sourceAsNode = (Node) eventSource ;
+            Scene oldScene = sourceAsNode.getScene();
+            Window window = oldScene.getWindow();
+            Stage stage = (Stage) window ;
+            stage.hide();
+                        
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlDocumentfxml));
+            Scene scene = new Scene(root);              
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();  
+                                    
+            newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    Platform.exit();
+                }
+            });
+                
     }
 }
