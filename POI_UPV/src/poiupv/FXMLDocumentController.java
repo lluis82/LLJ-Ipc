@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import poiupv.Poi;
+     
 
 /**
  *
@@ -218,14 +219,14 @@ public class FXMLDocumentController implements Initializable {
 //            y = e.getSceneY();
             
 //       });
-        double x_ini = event.getSceneX();
-        double y_ini = event.getSceneY();
-        circlePunto1.getTranslateX();
-        circlePunto1.getTranslateY();
-        circlePunto1.setVisible(true);
-        event.consume();
+//       double x_ini = event.getSceneX();
+//       double y_ini = event.getSceneY();
+//       circlePunto1.setTranslateX(x_ini);
+//       circlePunto1.setTranslateY(y_ini);
+//        circlePunto1.setVisible(true);
+//        event.consume();
         
-    }
+   }
 
     @FXML
     private void getCoords(MouseEvent event) {
