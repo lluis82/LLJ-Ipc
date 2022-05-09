@@ -58,4 +58,17 @@ public class Utils {
     
     }
     
+    public static  Boolean checkUsername (String username)
+    {   if(username == null){
+          return false; 
+        }
+       // Regex to check valid email. 
+        String regex = "^.{1,20}$";
+        // Compile the ReGex 
+        Pattern pattern = Pattern.compile(regex);
+        // Match ReGex with value to check
+        Matcher matcher = pattern.matcher(username);
+        return matcher.matches();
+    }
+    
 }

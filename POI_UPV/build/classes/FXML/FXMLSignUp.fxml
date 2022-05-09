@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="462.0" prefWidth="648.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #0685BC;" BorderPane.alignment="CENTER">
          <children>
@@ -72,13 +72,13 @@
             <Insets left="15.0" right="15.0" top="15.0" />
          </BorderPane.margin>
          <children>
-            <VBox prefHeight="214.0" prefWidth="570.0">
+            <VBox prefHeight="201.0" prefWidth="422.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="Username:" />
+                              <Label text="Username:" textFill="#025477" />
                               <TextField fx:id="eusername" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="Username" />
                            </children>
                         </VBox>
@@ -96,7 +96,7 @@
                         <Label fx:id="lIncorrectEmail" text="Incorrect Email" textFill="#ca0505" visible="false" />
                      </children>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -110,7 +110,7 @@
                         <Label fx:id="lIncorrectPass" text="Incorrect. It must be a combination of 8 to 15 numbers or letters, without blank spaces" textFill="#ca0505" visible="false" wrapText="true" />
                      </children>
                      <VBox.margin>
-                        <Insets bottom="25.0" top="25.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -128,11 +128,11 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label text="Date of birth:" />
-                              <DatePicker />
+                              <Label text="Date of birth:" textFill="#025477" />
+                              <DatePicker fx:id="datePicker" minHeight="-Infinity" minWidth="-Infinity" onAction="#datePickerButton" prefHeight="26.0" prefWidth="118.0" promptText="dd/mm/aaaa" />
                            </children>
                         </VBox>
-                        <Label text="You have to be older than 16 years." textFill="#ca0505" visible="false" />
+                        <Label fx:id="lIncorrectDate" text="You have to be older than 16 years." textFill="#ca0505" visible="false" />
                      </children>
                   </HBox>
                </children>

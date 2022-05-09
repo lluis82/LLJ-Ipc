@@ -9,6 +9,11 @@ import com.sun.javafx.logging.PlatformLogger.Level;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -24,6 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -33,6 +39,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import javafx.util.converter.LocalDateStringConverter;
 
 
 /**
@@ -47,6 +54,8 @@ public class FXMLSignUpController implements Initializable {
     private BooleanProperty validPassword;
     private BooleanProperty validEmail;
     private BooleanProperty equalPasswords;  
+    private BooleanProperty validUsername;
+    private BooleanProperty validDate;
 
     //private BooleanBinding validFields;
     
@@ -72,6 +81,10 @@ public class FXMLSignUpController implements Initializable {
     private TextField eusername;
     @FXML
     private Button changeAvatar;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private Label lIncorrectDate;
    
     
    
@@ -137,11 +150,14 @@ public class FXMLSignUpController implements Initializable {
         validEmail = new SimpleBooleanProperty();
         validPassword = new SimpleBooleanProperty();   
         equalPasswords = new SimpleBooleanProperty();
+        validUsername = new SimpleBooleanProperty();
+        validDate = new SimpleBooleanProperty();
         
         validPassword.setValue(Boolean.FALSE);
         validEmail.setValue(Boolean.FALSE);
         equalPasswords.setValue(Boolean.FALSE);
-        
+        validUsername.setValue(Boolean.FALSE);
+        validDate.setValue(Boolean.FALSE);
        
         
         
@@ -174,6 +190,16 @@ public class FXMLSignUpController implements Initializable {
 //        bCancel.setOnAction((event) -> {
 //            bCancel.getScene().getWindow().hide();
 //        });
+
+        // Formato -> https://acodigo.blogspot.com/2017/08/datepicker-control-javafx-para-manejar.html
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        datePicker.setConverter(new LocalDateStringConverter(formatter, null));
+        
+        try{
+            SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date1 = sdformat.parse("01/02/2018");
+            } catch (ParseException ex) {
+        }
     } 
    
     private boolean checkEditEmail() {
@@ -212,6 +238,27 @@ public class FXMLSignUpController implements Initializable {
         return correct;
     }
 
+        @FXML
+    private void changeAvatarButton(ActionEvent event) {
+    }
+
+    @FXML
+    private boolean datePickerButton(ActionEvent event) {
+        boolean correct = true;
+        LocalDate date = datePicker.getValue();
+        String dateS = date.toString();
+        String date2 = "05-06-2017";
+        
+        if (dateS.compareTo(date2) > 0) {
+            showErrorMessage(lIncorrectDate, datePicker, validDate);
+            datePicker.DatePicker();
+            datePicker.requestFocus();
+            correct = false;
+        } else { manageCorrect(lIncorrectDate, datePicker, validDate); }
+        
+        return correct;
+    }
+    
     @FXML
     private void handleBAcceptonAction(ActionEvent event) throws IOException {
         
@@ -234,9 +281,18 @@ public class FXMLSignUpController implements Initializable {
     
     @FXML
     private void handleCancelAction(ActionEvent event) throws IOException {
+        
         loadStage("/FXML/FXMLLogIn.fxml", event);
+        
+        eemail.textProperty().setValue("");
+        epassword.textProperty().setValue("");
+        epassword2.textProperty().setValue("");
+        
+        validEmail.setValue(Boolean.FALSE);
+        validPassword.setValue(Boolean.FALSE);
+        equalPasswords.setValue(Boolean.FALSE);
     }
-
+    
     private void loadStage(String fxmlDocumentfxml, ActionEvent event) throws IOException {
         // El cambio de ventanas lo hemos implementado con la ayuda del siguiente video https://www.youtube.com/watch?v=tibw7d1DjEI
         ((Node)(event.getSource())).getScene().getWindow().hide();
@@ -279,9 +335,5 @@ public class FXMLSignUpController implements Initializable {
                 Platform.exit();
             }
         });
-    }
-
-    @FXML
-    private void changeAvatarButton(ActionEvent event) {
     }
 }
