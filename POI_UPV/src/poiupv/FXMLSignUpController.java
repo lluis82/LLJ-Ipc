@@ -5,6 +5,7 @@
  */
 package poiupv;
 
+import DBAccess.NavegacionDAOException;
 import com.sun.javafx.logging.PlatformLogger.Level;
 import java.io.IOException;
 import java.lang.System.Logger;
@@ -40,6 +41,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
+import model.Navegacion;
 
 
 /**
@@ -85,6 +87,8 @@ public class FXMLSignUpController implements Initializable {
     private DatePicker datePicker;
     @FXML
     private Label lIncorrectDate;
+    
+    Navegacion t;
    
     
    
@@ -200,6 +204,15 @@ public class FXMLSignUpController implements Initializable {
             Date date1 = sdformat.parse("01/02/2018");
             } catch (ParseException ex) {
         }
+        
+        
+        try {
+            t = Navegacion.getSingletonNavegacion();
+        } catch (NavegacionDAOException ex) {
+            java.util.logging.Logger.getLogger(FXMLoginController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        
+        
     } 
    
     private boolean checkEditEmail() {
@@ -245,16 +258,16 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private boolean datePickerButton(ActionEvent event) {
         boolean correct = true;
-        LocalDate date = datePicker.getValue();
-        String dateS = date.toString();
-        String date2 = "05-06-2017";
-        
-        if (dateS.compareTo(date2) > 0) {
-            showErrorMessage(lIncorrectDate, datePicker, validDate);
-            datePicker.DatePicker();
-            datePicker.requestFocus();
-            correct = false;
-        } else { manageCorrect(lIncorrectDate, datePicker, validDate); }
+//        LocalDate date = datePicker.getValue();
+//        String dateS = date.toString();
+//        String date2 = "05-06-2017";
+//        
+//        if (dateS.compareTo(date2) > 0) {
+//            showErrorMessage(lIncorrectDate, datePicker, validDate);
+//            datePicker.DatePicker();
+//            datePicker.requestFocus();
+//            correct = false;
+//        } else { manageCorrect(lIncorrectDate, datePicker, validDate); }
         
         return correct;
     }
