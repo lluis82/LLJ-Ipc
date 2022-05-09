@@ -35,7 +35,7 @@ public class Utils {
     
      /**
      * 
-     * A password is considered valid if it is combination of 8 to 15 numbers or 
+     * A password is considered valid if it is combination of 8 to 20 numbers or 
      * letters, without blank spaces.
      *
      * @param password String which contains the password to check  
@@ -48,7 +48,7 @@ public class Utils {
             return false; 
         } 
         // Regex to check valid password. 
-        String regex =  "^[A-Za-z0-9]{8,15}$"; 
+        String regex =  "^[A-Za-z0-9]{8,20}$"; 
   
         // Compile the ReGex 
         Pattern pattern = Pattern.compile(regex); 

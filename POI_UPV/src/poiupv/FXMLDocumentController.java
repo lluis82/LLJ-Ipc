@@ -164,6 +164,8 @@ public class FXMLDocumentController implements Initializable {
         map_scrollpane.setContent(contentGroup);
         
         buttonPoint.setOnMouseClicked(this::colocarPunto);
+        
+        //Stage.setOnCloseRequest(this::cerrarAplicacion);
     }
 
     @FXML
@@ -234,4 +236,20 @@ public class FXMLDocumentController implements Initializable {
         y = event.getY();
         labelSelected.setText("X: " + x + "\n" + "Y: " + y);
     }
+    
+//    private void handleStageClosed(WindowEvent event) {
+//        // Lanza aviso solamente si el usuario está realizando un test o el mapa tiene algo dibujado/escrito en él
+////        if (/* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */) {
+//        Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
+//        mensaje.setTitle("Cerrar aplicación");
+//        mensaje.setHeaderText("¿Seguro que quiere cerrar la aplicación?");
+//        mensaje.setContentText("Podría llegar a perder información si está realizando un test.\n");
+//        Optional<ButtonType> result = mensaje.showAndWait();
+//        if (result.isPresent() && result.get() == ButtonType.OK) {
+//            Platform.exit();
+//        }
+////        } else {
+////            Platform.exit();
+////        }
+//    }    
 }

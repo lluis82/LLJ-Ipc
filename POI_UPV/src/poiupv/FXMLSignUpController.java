@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -67,6 +68,10 @@ public class FXMLSignUpController implements Initializable {
     private Button bAccept;
     @FXML
     private Button bCancel;
+    @FXML
+    private TextField eusername;
+    @FXML
+    private Button changeAvatar;
    
     
    
@@ -166,9 +171,9 @@ public class FXMLSignUpController implements Initializable {
 //                Bindings.not(validFields)
 //        );
         
-        bCancel.setOnAction((event) -> {
-            bCancel.getScene().getWindow().hide();
-        });
+//        bCancel.setOnAction((event) -> {
+//            bCancel.getScene().getWindow().hide();
+//        });
     } 
    
     private boolean checkEditEmail() {
@@ -226,55 +231,57 @@ public class FXMLSignUpController implements Initializable {
         validPassword.setValue(Boolean.FALSE);
         equalPasswords.setValue(Boolean.FALSE);
     }
+    
+    @FXML
+    private void handleCancelAction(ActionEvent event) throws IOException {
+        loadStage("/FXML/FXMLLogIn.fxml", event);
+    }
 
     private void loadStage(String fxmlDocumentfxml, ActionEvent event) throws IOException {
+        // El cambio de ventanas lo hemos implementado con la ayuda del siguiente video https://www.youtube.com/watch?v=tibw7d1DjEI
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+            
+        Object eventSource = event.getSource(); 
+        Node sourceAsNode = (Node) eventSource ;
+        Scene oldScene = sourceAsNode.getScene();
+        Window window = oldScene.getWindow();
+        Stage stage = (Stage) window;
+        stage.hide();
+
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlDocumentfxml));
+        Scene scene = new Scene(root); 
         
-//         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlDocumentfxml));
-//
-//        Stage stage = (Stage) selectServices.getScene().getWindow();
-//        Scene scene = null;
-//
-//        try {
-//            scene = new Scene(loader.load(), 1173, 721);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        stage.setScene(scene);
-
-
-
-
-
-         
-
-
-
-
-
-
-            ((Node)(event.getSource())).getScene().getWindow().hide();    
             
-            
-            Object eventSource = event.getSource(); 
-            Node sourceAsNode = (Node) eventSource ;
-            Scene oldScene = sourceAsNode.getScene();
-            Window window = oldScene.getWindow();
-            Stage stage = (Stage) window ;
-            stage.hide();
-                        
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlDocumentfxml));
-            Scene scene = new Scene(root);              
-            Stage newStage = new Stage();
-            newStage.setScene(scene);
-            newStage.show();  
-                                    
-            newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent event) {
-                    Platform.exit();
-                }
-            });
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        
+        switch(fxmlDocumentfxml) {
+            case "/FXML/FXMLDocument.fxml":
+                newStage.getIcons().add(new Image("/resources/icons/app.png"));
+                newStage.setTitle("APP");
+                break;
                 
+            case "/FXML/FXMLLogIn.fxml":
+                newStage.getIcons().add(new Image("/resources/icons/login.png"));
+                newStage.setTitle("Log In");
+                break;
+                
+            default:
+                newStage.setTitle("ERROR");
+                break;
+        }
+        
+        newStage.show();  
+
+        newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+            }
+        });
+    }
+
+    @FXML
+    private void changeAvatarButton(ActionEvent event) {
     }
 }

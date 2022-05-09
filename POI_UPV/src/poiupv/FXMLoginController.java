@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -110,28 +111,46 @@ public class FXMLoginController implements Initializable {
     }
     
     private void loadStage(String fxmlDocumentfxml, ActionEvent event) throws IOException {
+        // El cambio de ventanas lo hemos implementado con la ayuda del siguiente video https://www.youtube.com/watch?v=tibw7d1DjEI
         ((Node)(event.getSource())).getScene().getWindow().hide();    
             
             
-            Object eventSource = event.getSource(); 
-            Node sourceAsNode = (Node) eventSource ;
-            Scene oldScene = sourceAsNode.getScene();
-            Window window = oldScene.getWindow();
-            Stage stage = (Stage) window ;
-            stage.hide();
-                        
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlDocumentfxml));
-            Scene scene = new Scene(root);              
-            Stage newStage = new Stage();
-            newStage.setScene(scene);
-            newStage.show();  
-                                    
-            newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent event) {
-                    Platform.exit();
-                }
-            });
+        Object eventSource = event.getSource(); 
+        Node sourceAsNode = (Node) eventSource ;
+        Scene oldScene = sourceAsNode.getScene();
+        Window window = oldScene.getWindow();
+        Stage stage = (Stage) window ;
+        stage.hide();
+
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlDocumentfxml));
+        Scene scene = new Scene(root);              
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        
+        switch(fxmlDocumentfxml) {
+            case "/FXML/FXMLDocument.fxml":
+                newStage.getIcons().add(new Image("/resources/icons/app.png"));
+                newStage.setTitle("APP");
+                break;
+                
+            case "/FXML/FXMLSignUp.fxml":
+                newStage.getIcons().add(new Image("/resources/icons/signup.png"));
+                newStage.setTitle("Sign Up");
+                break;
+                
+            default:
+                newStage.setTitle("ERROR");
+                break;
+        }
+        
+        newStage.show();  
+
+        newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+            }
+        });
     }
     
 }
