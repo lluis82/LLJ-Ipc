@@ -42,6 +42,9 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
 import model.Navegacion;
+import static model.User.checkEmail;
+import static model.User.checkNickName;
+import static model.User.checkPassword;
 
 
 /**
@@ -89,11 +92,12 @@ public class FXMLSignUpController implements Initializable {
     private Label lIncorrectDate;
     
     Navegacion t;
+    
+    @FXML
+    private Label lIncorrectUsername;
    
     
-   
     
-
     /**
      * Updates the boolProp to false.Changes to red the background of the edit. 
      * Makes the error label visible and sends the focus to the edit. 
@@ -119,6 +123,33 @@ public class FXMLSignUpController implements Initializable {
         hideErrorMessage(errorLabel,textField);
         
     }
+    
+    /**
+     * Updates the boolProp to false.Changes to red the background of the edit. 
+     * Makes the error label visible and sends the focus to the edit. 
+     * @param errorLabel label added to alert the user
+     * @param textField edit text added to allow user to introduce the value
+     * @param boolProp property which stores if the value is correct or not
+     */
+    private void manageErrorDatePicker(Label errorLabel, DatePicker datePicker, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.FALSE);
+        showErrorMessageDatePicker(errorLabel,datePicker);
+        datePicker.requestFocus();
+ 
+    }
+    /**
+     * Updates the boolProp to true. Changes the background 
+     * of the edit to the default value. Makes the error label invisible. 
+     * @param errorLabel label added to alert the user
+     * @param textField edit text added to allow user to introduce the value
+     * @param boolProp property which stores if the value is correct or not
+     */
+    private void manageCorrectDatePicker(Label errorLabel, DatePicker datePicker, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.TRUE);
+        hideErrorMessageDatePicker(errorLabel,datePicker);
+        
+    }
+    
     /**
      * Changes to red the background of the edit and
      * makes the error label visible
@@ -142,6 +173,30 @@ public class FXMLSignUpController implements Initializable {
         textField.styleProperty().setValue("");
     }
 
+    
+    
+    /**
+     * Changes to red the background of the edit and
+     * makes the error label visible
+     * @param errorLabel
+     * @param textField 
+     **/
+    private void showErrorMessageDatePicker(Label errorLabel, DatePicker datePicker)
+    {
+        errorLabel.visibleProperty().set(true);
+        datePicker.styleProperty().setValue("-fx-background-color: #FCE5E0");    
+    }
+    /**
+     * Changes the background of the edit to the default value
+     * and makes the error label invisible.
+     * @param errorLabel
+     * @param datePicker 
+     */
+    private void hideErrorMessageDatePicker(Label errorLabel, DatePicker datePicker)
+    {
+        errorLabel.visibleProperty().set(false);
+        datePicker.styleProperty().setValue("");
+    }
 
     
 
@@ -169,24 +224,7 @@ public class FXMLSignUpController implements Initializable {
                  .and(equalPasswords);
          
 
-//        eemail.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!newValue) {
-//                checkEditEmail();
-//            }
-//        });
-//        
-//        epassword.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!newValue) {
-//                checkEditPass();
-//            }
-//        });
-//        
-//        epassword2.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!newValue) {
-//                checkEquals();
-//            }
-//        });
-        
+
 //        bAccept.disableProperty().bind(
 //                Bindings.not(validFields)
 //        );
@@ -217,7 +255,7 @@ public class FXMLSignUpController implements Initializable {
    
     private boolean checkEditEmail() {
         boolean correct = true;
-        if (!Utils.checkEmail(eemail.textProperty().getValueSafe())) {
+        if (!checkEmail(eemail.textProperty().getValueSafe())) {
             manageError(lIncorrectEmail, eemail, validEmail);
             correct = false;
         }
@@ -227,7 +265,7 @@ public class FXMLSignUpController implements Initializable {
     
     private boolean checkEditPass() {
         boolean correct = true;
-        if (!Utils.checkPassword(epassword.textProperty().getValueSafe())) {
+        if (!checkPassword(epassword.textProperty().getValueSafe())) {
             manageError(lIncorrectPass, epassword, validPassword);
             correct = false;
         }
@@ -250,37 +288,48 @@ public class FXMLSignUpController implements Initializable {
         else { manageCorrect(lPassDifferent, epassword2, equalPasswords); }
         return correct;
     }
+    
+    private boolean checkEditUsername() {
+        boolean correct = true;
+        if (!checkNickName(eusername.textProperty().getValueSafe())) {
+            manageError(lIncorrectUsername, eusername, validUsername);
+            correct = false;
+        }
+        else { manageCorrect(lIncorrectUsername, eusername, validUsername); }
+        return correct;
+    }
+    
+    private boolean checkEditDate() {
+        boolean correct = true;
+        LocalDate date = LocalDate.now().minusYears(16)/*.plusDays(1)*/;
+        LocalDate date2 = datePicker.getValue();
+        if (!date.isAfter(date2)) {
+            manageErrorDatePicker(lIncorrectDate, datePicker, validDate);
+            //datePicker.textProperty().setValue("");
+            datePicker.requestFocus();
+            correct = false;
+        } else { manageCorrectDatePicker(lIncorrectDate, datePicker, validDate); }
+        return correct;
+    }
+    
 
         @FXML
     private void changeAvatarButton(ActionEvent event) {
     }
-
-    @FXML
-    private boolean datePickerButton(ActionEvent event) {
-        boolean correct = true;
-//        LocalDate date = datePicker.getValue();
-//        String dateS = date.toString();
-//        String date2 = "05-06-2017";
-//        
-//        if (dateS.compareTo(date2) > 0) {
-//            showErrorMessage(lIncorrectDate, datePicker, validDate);
-//            datePicker.DatePicker();
-//            datePicker.requestFocus();
-//            correct = false;
-//        } else { manageCorrect(lIncorrectDate, datePicker, validDate); }
-        
-        return correct;
-    }
     
     @FXML
-    private void handleBAcceptonAction(ActionEvent event) throws IOException {
+    private void handleAcceptAction(ActionEvent event) throws IOException {
         
-        if (checkEditEmail() ==  true) {
-            if (checkEditPass() == true) {
-                if (checkEquals() == true) {
-                    loadStage("/FXML/FXMLDocument.fxml", event);
-                }
-            }
+        if (checkEditEmail() && checkEditPass() && checkEquals() && checkEditUsername() && checkEditDate()) {
+            // Si la foto del avatar NO ha cambiado, usamos registerUser sin el Image avatar, sino, si
+//            if (/*la foto de avatar NO ha cambiado*/) {
+                //registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
+                        //epassword.textProperty().getValueSafe(), datePicker.getValue());
+//            } else {
+//                registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
+//                        epassword.textProperty().getValueSafe(), /*Image avatar*/, datePicker.getValue());
+//            }
+            loadStage("/FXML/FXMLDocument.fxml", event);
         }
         
         eemail.textProperty().setValue("");
@@ -349,4 +398,5 @@ public class FXMLSignUpController implements Initializable {
             }
         });
     }
+
 }

@@ -35,7 +35,7 @@
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="560.0" spacing="25.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <Button fx:id="bAccept" alignment="CENTER" minWidth="80.0" mnemonicParsing="false" onAction="#handleBAcceptonAction" prefWidth="100.0" style="-fx-background-color: #0685BC;" text="Accept" textFill="WHITE">
+            <Button fx:id="bAccept" alignment="CENTER" minWidth="80.0" mnemonicParsing="false" onAction="#handleAcceptAction" prefWidth="100.0" style="-fx-background-color: #0685BC;" text="Accept" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,7 +82,7 @@
                               <TextField fx:id="eusername" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="Username" />
                            </children>
                         </VBox>
-                        <Label text="Username already in use. Try with other." textFill="#ca0505" visible="false" />
+                        <Label fx:id="lIncorrectUsername" text="Username already in use. Try with other." textFill="#ca0505" visible="false" />
                      </children>
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -129,7 +129,7 @@
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Label text="Date of birth:" textFill="#025477" />
-                              <DatePicker fx:id="datePicker" minHeight="-Infinity" minWidth="-Infinity" onAction="#datePickerButton" prefHeight="26.0" prefWidth="118.0" promptText="dd/mm/aaaa" />
+                              <DatePicker fx:id="datePicker" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="118.0" promptText="dd/mm/aaaa" />
                            </children>
                         </VBox>
                         <Label fx:id="lIncorrectDate" text="You have to be older than 16 years." textFill="#ca0505" visible="false" />
