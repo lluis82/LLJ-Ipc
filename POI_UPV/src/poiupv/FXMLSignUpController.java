@@ -7,6 +7,8 @@ package poiupv;
 
 import DBAccess.NavegacionDAOException;
 import com.sun.javafx.logging.PlatformLogger.Level;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.net.URL;
@@ -36,11 +38,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
+import javax.swing.JFrame;
 import model.Navegacion;
 import static model.User.checkEmail;
 import static model.User.checkNickName;
@@ -95,6 +100,8 @@ public class FXMLSignUpController implements Initializable {
     
     @FXML
     private Label lIncorrectUsername;
+    @FXML
+    private ImageView imageAvatar;
    
     
     
@@ -250,7 +257,6 @@ public class FXMLSignUpController implements Initializable {
             java.util.logging.Logger.getLogger(FXMLoginController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
-        
     } 
    
     private boolean checkEditEmail() {
@@ -314,17 +320,22 @@ public class FXMLSignUpController implements Initializable {
     
 
         @FXML
-    private void changeAvatarButton(ActionEvent event) {
+    private void changeAvatarButton(ActionEvent event) throws FileNotFoundException {
+        
+        String url = "/resources/avatars/avatar1.png";
+        Image avatar = new Image(new FileInputStream(url));
+        imageAvatar.imageProperty().setValue(avatar);
+        
     }
     
     @FXML
-    private void handleAcceptAction(ActionEvent event) throws IOException {
+    private void handleAcceptAction(ActionEvent event) throws IOException, NavegacionDAOException {
         
         if (checkEditEmail() && checkEditPass() && checkEquals() && checkEditUsername() && checkEditDate()) {
             // Si la foto del avatar NO ha cambiado, usamos registerUser sin el Image avatar, sino, si
 //            if (/*la foto de avatar NO ha cambiado*/) {
-                //registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
-                        //epassword.textProperty().getValueSafe(), datePicker.getValue());
+                t.registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
+                        epassword.textProperty().getValueSafe(), datePicker.getValue());
 //            } else {
 //                registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
 //                        epassword.textProperty().getValueSafe(), /*Image avatar*/, datePicker.getValue());

@@ -78,7 +78,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button buttonPoint;
     @FXML
-    private ImageView buttonLine;
+    private Button buttonLine;
     @FXML
     private ImageView buttonArch;
     @FXML
@@ -350,5 +350,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void cerrarSesion(MouseEvent event) {
+    }
+
+    @FXML
+    private void handleBLine(ActionEvent event) {
     }
 }

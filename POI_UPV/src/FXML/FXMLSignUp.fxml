@@ -140,13 +140,13 @@
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="150.0" spacing="5.0">
                <children>
                   <Label text="Choose an avatar:" />
-                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/avatars/default.png" />
-                     </image>
+                  <ImageView fx:id="imageAvatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
                         <Insets left="15.0" />
                      </VBox.margin>
+                     <image>
+                        <Image url="@../resources/avatars/default.png" />
+                     </image>
                   </ImageView>
                   <Button fx:id="changeAvatar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeAvatarButton" text="Change avatar">
                      <VBox.margin>
