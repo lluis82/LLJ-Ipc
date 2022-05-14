@@ -22,11 +22,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox prefHeight="605.0" prefWidth="935.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="605.0" prefWidth="935.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
-            <ImageView fx:id="imageviewBurger" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageviewBurger" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#editarPerfil" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/Screenshot%202022-05-11%20at%2023.09.38.png" />
                </image>
@@ -57,6 +57,7 @@
               </menus>
             </MenuBar>
             <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#problemas" text="problemas" />
             <ToolBar prefHeight="46.0" prefWidth="195.0">
               <items>
                 <Button fx:id="buttonPoint" mnemonicParsing="false">
@@ -70,7 +71,7 @@
                   </Button>
                   <Button fx:id="buttonLine" mnemonicParsing="false" onAction="#handleBLine">
                      <graphic>
-                        <ImageView fx:id="buttonLine" fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../resources/Screenshot%202022-05-04%20at%2021.29.46.png" />
                            </image>
@@ -106,30 +107,9 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </HBox>
-      <SplitPane dividerPositions="0.5, 0.5" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>
-            <AnchorPane maxWidth="50.0" prefHeight="512.0" prefWidth="50.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="50.0">
-                     <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.51" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/cancel.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="paneMenu" maxWidth="100.0" prefHeight="512.0" prefWidth="100.0">
-               <children>
-                  <VBox fx:id="vboxMenu" maxWidth="100.0" prefHeight="512.0" prefWidth="195.0">
-                     <children>
-                        <Button fx:id="buttonCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" onMouseClicked="#cerrarSesion" prefHeight="50.0" prefWidth="100.0" text="Cerrar Sesion" />
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
+            <AnchorPane maxWidth="50.0" prefHeight="512.0" prefWidth="50.0" />
             <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS">
                <content>
                   <Pane>

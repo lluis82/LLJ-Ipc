@@ -5,6 +5,7 @@
  */
 package poiupv;
 
+import DBAccess.NavegacionDAOException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -47,7 +50,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import model.Navegacion;
+import model.Problem;
 import poiupv.Poi;
+
      
 
 /**
@@ -91,14 +97,11 @@ public class FXMLDocumentController implements Initializable {
     double y;
     @FXML
     private Label labelSelected;
-    @FXML
-    private VBox vboxMenu;
-    @FXML
-    private Button buttonCerrarSesion;
-    @FXML
     private AnchorPane paneMenu;
     @FXML
     private ImageView imageviewBurger;
+    Navegacion t;
+    List<Problem> l;
 
     @FXML
     void zoomIn(ActionEvent event) {
@@ -184,24 +187,12 @@ public class FXMLDocumentController implements Initializable {
         
         buttonPoint.setOnMouseClicked(this::colocarPunto);
         
-        
-        //animacion sacada de https://www.youtube.com/watch?v=YEbqC4Tn29Y
-        TranslateTransition translateTransition=new TranslateTransition(Duration.seconds(0.5),paneMenu);
-        translateTransition.setByX(-600);
-        translateTransition.play();
-        
-        paneMenu.setVisible(false);
-        
-        imageviewBurger.setOnMouseClicked(event -> {
-            
-            paneMenu.setVisible(true);
-
-            TranslateTransition translateTransition1=new TranslateTransition(Duration.seconds(0.5),paneMenu);
-            translateTransition1.setByX(+600);
-            translateTransition1.play();
-        });
-        
-        
+        try {
+            t = Navegacion.getSingletonNavegacion();
+        } catch (NavegacionDAOException ex) {
+            Logger.getLogger(FXMLoginController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("error");
+        }
         
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
     }
@@ -334,7 +325,6 @@ public class FXMLDocumentController implements Initializable {
         });
     }
 
-    @FXML
     private void cerrarSesion(ActionEvent event) throws IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Diálogo de confirmación");
@@ -348,11 +338,35 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    @FXML
-    private void cerrarSesion(MouseEvent event) {
-    }
 
     @FXML
     private void handleBLine(ActionEvent event) {
+    }
+
+    @FXML
+    private void editarPerfil(MouseEvent event) throws IOException {
+        ((Node) (event.getSource())).getScene().getWindow();
+
+        Object eventSource = event.getSource();
+        Node sourceAsNode = (Node) eventSource;
+        Scene oldScene = sourceAsNode.getScene();
+        Window window = oldScene.getWindow();
+        Stage stage = (Stage) window;
+        
+
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLEditarPerfil.fxml"));
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        
+        newStage.getIcons().add(new Image("/resources/icons/signup.png"));
+        newStage.setTitle("Edit Profile");
+        newStage.show();
+    }
+
+    @FXML
+    private void problemas(ActionEvent event) {
+        l = t.getProblems();
+        System.out.println(l);
     }
 }
