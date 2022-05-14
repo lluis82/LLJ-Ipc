@@ -331,7 +331,7 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private void handleAcceptAction(ActionEvent event) throws IOException, NavegacionDAOException {
         
-        if (checkEditEmail() && checkEditPass() && checkEquals() && checkEditUsername() && checkEditDate()) {
+        if (checkEditEmail() & (checkEditPass() && checkEquals()) & checkEditUsername() & checkEditDate()) {
             // Si la foto del avatar NO ha cambiado, usamos registerUser sin el Image avatar, sino, si
 //            if (/*la foto de avatar NO ha cambiado*/) {
                 t.registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
