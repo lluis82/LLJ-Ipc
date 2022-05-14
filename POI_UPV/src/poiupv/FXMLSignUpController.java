@@ -297,7 +297,7 @@ public class FXMLSignUpController implements Initializable {
     
     private boolean checkEditUsername() {
         boolean correct = true;
-        if (!checkNickName(eusername.textProperty().getValueSafe())) {
+        if (!checkNickName(eusername.textProperty().getValueSafe()) && !t.exitsNickName(eusername.textProperty().getValueSafe())) {
             manageError(lIncorrectUsername, eusername, validUsername);
             correct = false;
         }
