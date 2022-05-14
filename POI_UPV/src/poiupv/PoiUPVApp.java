@@ -25,7 +25,7 @@ public class PoiUPVApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLLogIn.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLLogIn.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         // Solamente el codigo para añadir el icono ha sido sacado de: https://stackoverflow.com/questions/10275841/how-to-change-the-icon-on-the-title-bar-of-a-stage-in-java-fx-2-0-of-my-applicat

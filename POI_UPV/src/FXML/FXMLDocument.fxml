@@ -60,7 +60,7 @@
             <Button mnemonicParsing="false" onAction="#problemas" text="problemas" />
             <ToolBar prefHeight="46.0" prefWidth="195.0">
               <items>
-                <Button fx:id="buttonPoint" mnemonicParsing="false">
+                <Button fx:id="buttonPoint" mnemonicParsing="false" onAction="#colocarPunto1">
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -115,7 +115,7 @@
                   <Pane>
                      <children>
                         <Circle fx:id="circlePunto1" fill="DODGERBLUE" layoutX="24.0" layoutY="27.0" onMouseClicked="#colocarPunto" radius="13.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                        <ImageView fx:id="imageviewCarta" layoutX="-126.0" layoutY="-210.0" onMousePressed="#getCoords" pickOnBounds="true">
+                        <ImageView fx:id="imageviewCarta" layoutX="-126.0" layoutY="-210.0" onMousePressed="#colocarPunto" pickOnBounds="true">
                            <image>
                               <Image url="@../resources/carta_nautica.jpg" />
                            </image>

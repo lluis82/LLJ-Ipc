@@ -243,23 +243,6 @@ public class FXMLDocumentController implements Initializable {
 //      }
     }
 
-    @FXML
-    private void colocarPunto(MouseEvent event) {
-//        imageviewCarta.setOnMouseClicked(e -> {
- //           x = e.getSceneX();
-//            y = e.getSceneY();
-            
-//       });
-        double x_ini = event.getSceneX();
-        double y_ini = event.getSceneY();
-        circlePunto1.setTranslateX(x_ini);
-        circlePunto1.setTranslateY(y_ini);
-        circlePunto1.setVisible(true);
-//        event.consume();
-        
-   }
-
-    @FXML
     private void getCoords(MouseEvent event) {
         x = event.getX();
         y = event.getY();
@@ -368,5 +351,24 @@ public class FXMLDocumentController implements Initializable {
     private void problemas(ActionEvent event) {
         l = t.getProblems();
         System.out.println(l);
+    }
+
+    private void colocarPunto(ActionEvent event) {
+        //double x_ini = event.getSceneX();
+        //double y_ini = event.getSceneY();
+        //circlePunto1.setTranslateX(x_ini);
+//        circlePunto1.setTranslateY(y_ini);
+//        circlePunto1.setVisible(true);
+//        event.consume();
+        
+   
+    }
+
+    @FXML
+    private void colocarPunto1(ActionEvent event) {
+    }
+
+    @FXML
+    private void colocarPunto(MouseEvent event) {
     }
 }
