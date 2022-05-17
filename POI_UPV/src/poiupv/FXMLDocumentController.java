@@ -21,11 +21,14 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -42,8 +45,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -53,6 +58,7 @@ import javafx.util.Duration;
 import model.Navegacion;
 import model.Problem;
 import poiupv.Poi;
+
 
      
 
@@ -75,9 +81,7 @@ public class FXMLDocumentController implements Initializable {
     private ScrollPane map_scrollpane;
     @FXML
     private Slider zoom_slider;
-    @FXML
     private MenuButton map_pin;
-    @FXML
     private MenuItem pin_info;
     @FXML
     private Label posicion;
@@ -91,8 +95,6 @@ public class FXMLDocumentController implements Initializable {
     private ImageView buttonText;
     @FXML
     private ImageView imageviewCarta;
-    @FXML
-    private Circle circlePunto1;
     double x;
     double y;
     @FXML
@@ -101,7 +103,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ImageView imageviewBurger;
     Navegacion t;
-    List<Problem> l;
+    private List<Problem> l;
+    private ObservableList<Problem> listaObservable;
+    @FXML
+    private Pane paneCarta;
+    private Circle c;
+    @FXML
+    private ListView<Problem> lvProblemas;
 
     @FXML
     void zoomIn(ActionEvent event) {
@@ -193,6 +201,8 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLoginController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("error");
         }
+        l = t.getProblems();
+        listaObservable = FXCollections.observableList(l);
         
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
     }
@@ -349,26 +359,43 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void problemas(ActionEvent event) {
-        l = t.getProblems();
-        System.out.println(l);
+        lvProblemas.getItems().addAll(listaObservable);
+        System.out.println(listaObservable);
     }
 
-    private void colocarPunto(ActionEvent event) {
-        //double x_ini = event.getSceneX();
-        //double y_ini = event.getSceneY();
-        //circlePunto1.setTranslateX(x_ini);
-//        circlePunto1.setTranslateY(y_ini);
-//        circlePunto1.setVisible(true);
-//        event.consume();
-        
-   
-    }
 
     @FXML
     private void colocarPunto1(ActionEvent event) {
+        c = new Circle(0, 0, 15);
+        imageviewCarta.setOnMousePressed(ev -> {
+            
+            x = ev.getSceneX()-ev.getX();
+            y = ev.getSceneY()-ev.getY();
+            labelSelected.setText("X: " + x + "\n" + "Y: " + y);
+            
+            paneCarta.getChildren().add(c);
+            c.setLayoutX(x);
+            c.setLayoutY(y);
+            c.setVisible(true);
+        });
+        
+        c.setOnMouseDragged(e ->{
+            //double baseX = c.getTranslateX();
+            //double baseY = c.getTranslateY();
+//            c.setTranslateX(despX + baseX);
+//            c.setTranslateY(despY + baseY);
+            Point2D newLocation = new Point2D(e.getX(), e.getY());
+            c.setLayoutX(newLocation.getX());
+            c.setLayoutY(newLocation.getY());
+
+        });
+        
+        
+
     }
 
     @FXML
     private void colocarPunto(MouseEvent event) {
+        
     }
 }
