@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLEditarPerfilController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLEditarPerfilController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" styleClass="primary-color" stylesheets="@../CSS/Editar%20Perfil.css" BorderPane.alignment="CENTER">
          <children>
@@ -188,7 +188,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="780.0">
                            <children>
-                              <Label prefHeight="20.0" prefWidth="141.0" text="Fecha de nacimiento">
+                              <Label prefHeight="26.0" prefWidth="148.0" text="Fecha de nacimiento">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

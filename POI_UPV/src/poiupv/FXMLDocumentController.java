@@ -47,10 +47,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -110,7 +113,11 @@ public class FXMLDocumentController implements Initializable {
     private Circle c;
     @FXML
     private ListView<Problem> lvProblemas;
-
+    Line linePainting;
+    boolean isLine;
+    boolean isText;
+    
+    
     @FXML
     void zoomIn(ActionEvent event) {
         //================================================
@@ -334,6 +341,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleBLine(ActionEvent event) {
+        isLine = true;
     }
 
     @FXML
@@ -397,5 +405,52 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void colocarPunto(MouseEvent event) {
         
+    }
+    
+    @FXML
+    private void zoomControl(ScrollEvent event) {
+        if (event.isControlDown()) {
+            if (event.getDeltaY() < 0) {
+                double sliderVal = zoom_slider.getValue();
+                zoom_slider.setValue(sliderVal += -((0.8-0.12)/10));
+            }
+            else {
+                double sliderVal = zoom_slider.getValue();
+                zoom_slider.setValue(sliderVal + ((0.8-0.12)/10));
+            }
+        }
+    }
+    
+    @FXML
+    private void mousePressedAction(MouseEvent event) {
+        if (isLine && event.isPrimaryButtonDown()) {
+            linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+            zoomGroup.getChildren().add(linePainting);
+//            while (event.isDragDetect()) {
+//                linePainting.setEndX(event.getX());
+//                linePainting.setEndY(event.getY());
+//            }
+//            event.consume();
+        }
+    }
+
+    @FXML
+    private void mouseDraggedAction(MouseEvent event) {
+        if (isLine && event.isPrimaryButtonDown()) {
+            linePainting.setEndX(event.getX());
+            linePainting.setEndY(event.getY());
+            event.consume();
+        }
+    }
+
+    @FXML
+    private void mouseReleasedAction(MouseEvent event) {
+        isLine = false;
+        //isText = false;
+    }
+
+    @FXML
+    private void mouseMovedAction(MouseEvent event) {
+        isText = false;
     }
 }
