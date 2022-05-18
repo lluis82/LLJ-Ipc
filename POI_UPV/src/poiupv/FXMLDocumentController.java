@@ -110,11 +110,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ImageView imageviewBurger;
     Navegacion t;
-    private List<Problem> l;
     private ObservableList<Problem> listaObservable;
     @FXML
     private Pane paneCarta;
-    private Circle c;
+    Circle c;
     @FXML
     private ListView<Problem> lvProblemas;
     Line linePainting;
@@ -123,6 +122,7 @@ public class FXMLDocumentController implements Initializable {
     boolean isLine;
     boolean isArc;
     boolean isText;
+    boolean isPoint;
     double inicioXArc;
     
     
@@ -208,16 +208,20 @@ public class FXMLDocumentController implements Initializable {
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
         
-        buttonPoint.setOnMouseClicked(this::colocarPunto);
+        
         
         try {
             t = Navegacion.getSingletonNavegacion();
+            
         } catch (NavegacionDAOException ex) {
             Logger.getLogger(FXMLoginController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("error");
         }
-        l = t.getProblems();
+        
+        List<Problem> l = t.getProblems();
         listaObservable = FXCollections.observableList(l);
+        lvProblemas.setItems(listaObservable);
+        System.out.println(listaObservable);
         
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
     }
@@ -363,6 +367,11 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
+    private void handleBPunto(ActionEvent event) {
+        isPoint = true;
+    }
+    
+    @FXML
     private void editarPerfil(MouseEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow();
 
@@ -380,7 +389,8 @@ public class FXMLDocumentController implements Initializable {
         
         newStage.getIcons().add(new Image("/resources/icons/signup.png"));
         newStage.setTitle("Edit Profile");
-        newStage.show();
+        newStage.showAndWait();
+        
     }
 
     @FXML
@@ -390,40 +400,40 @@ public class FXMLDocumentController implements Initializable {
     }
 
 
-    @FXML
-    private void colocarPunto1(ActionEvent event) {
-        c = new Circle(0, 0, 15);
-        imageviewCarta.setOnMousePressed(ev -> {
-            
-            x = ev.getSceneX()-ev.getX();
-            y = ev.getSceneY()-ev.getY();
-            labelSelected.setText("X: " + x + "\n" + "Y: " + y);
-            
-            paneCarta.getChildren().add(c);
-            c.setLayoutX(x);
-            c.setLayoutY(y);
-            c.setVisible(true);
-        });
-        
-        c.setOnMouseDragged(e ->{
-            //double baseX = c.getTranslateX();
-            //double baseY = c.getTranslateY();
-//            c.setTranslateX(despX + baseX);
-//            c.setTranslateY(despY + baseY);
-            Point2D newLocation = new Point2D(e.getX(), e.getY());
-            c.setLayoutX(newLocation.getX());
-            c.setLayoutY(newLocation.getY());
+//    @FXML
+//    private void colocarPunto1(ActionEvent event) {
+//        c = new Circle(0, 0, 15);
+//        imageviewCarta.setOnMousePressed(ev -> {
+//            
+//            x = ev.getSceneX()-ev.getX();
+//            y = ev.getSceneY()-ev.getY();
+//            labelSelected.setText("X: " + x + "\n" + "Y: " + y);
+//            
+//            paneCarta.getChildren().add(c);
+//            c.setLayoutX(x);
+//            c.setLayoutY(y);
+//            c.setVisible(true);
+//        });
+//        
+//        c.setOnMouseDragged(e ->{
+//            //double baseX = c.getTranslateX();
+//            //double baseY = c.getTranslateY();
+////            c.setTranslateX(despX + baseX);
+////            c.setTranslateY(despY + baseY);
+//            Point2D newLocation = new Point2D(e.getX(), e.getY());
+//            c.setLayoutX(newLocation.getX());
+//            c.setLayoutY(newLocation.getY());
+//
+//        });
+//        
+//        
+//
+//    }
 
-        });
-        
-        
-
-    }
-
-    @FXML
-    private void colocarPunto(MouseEvent event) {
-        
-    }
+//    @FXML
+//    private void colocarPunto(MouseEvent event) {
+//        
+//    }
     
     @FXML
     private void zoomControl(ScrollEvent event) {
@@ -518,6 +528,19 @@ public class FXMLDocumentController implements Initializable {
             zoomGroup.getChildren().remove(texto);
             e.consume();
         });
+        
+        /*-----------PUNTO-----------*/
+        if (isPoint && event.isPrimaryButtonDown()) {
+            c = new Circle(10);
+            c.setStroke(Color.BLUE);
+            c.setFill(Color.LIGHTBLUE);
+            
+            zoomGroup.getChildren().add(c);
+            
+            c.setCenterX(event.getX());
+            c.setCenterY(event.getY());
+        }
+        
     }
 
     @FXML
@@ -550,4 +573,6 @@ public class FXMLDocumentController implements Initializable {
     private void mouseMovedAction(MouseEvent event) {
         //isText = false;
     }
+
+    
 }

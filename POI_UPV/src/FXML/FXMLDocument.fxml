@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="605.0" prefWidth="935.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="605.0" prefWidth="935.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -58,7 +58,7 @@
             <Button mnemonicParsing="false" onAction="#problemas" text="problemas" />
             <ToolBar prefHeight="46.0" prefWidth="195.0">
               <items>
-                <Button fx:id="buttonPoint" mnemonicParsing="false" onAction="#colocarPunto1">
+                <Button fx:id="buttonPoint" mnemonicParsing="false" onAction="#handleBPunto">
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -115,7 +115,7 @@
                <content>
                   <Pane fx:id="paneCarta" onMouseDragged="#mouseDraggedAction" onMouseMoved="#mouseMovedAction" onMousePressed="#mousePressedAction" onMouseReleased="#mouseReleasedAction">
                      <children>
-                        <ImageView fx:id="imageviewCarta" layoutX="-122.0" layoutY="-213.0" onMousePressed="#colocarPunto" onScroll="#zoomControl" pickOnBounds="true">
+                        <ImageView fx:id="imageviewCarta" layoutX="-122.0" layoutY="-213.0" onScroll="#zoomControl" pickOnBounds="true">
                            <image>
                               <Image url="@../resources/carta_nautica.jpg" />
                            </image>

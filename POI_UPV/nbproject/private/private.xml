@@ -4,17 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="IPC"/>
         <group>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/poiupv/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/poiupv/PoiUPVApp.java</file>
-            <file>jar:file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/lib/Navegacion.jar!/META-INF/MANIFEST.MF</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/poiupv/Poi.java</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/resources/estilos.css</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/poiupv/FXMLSignUpController.java</file>
-            <file>jar:file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/lib/Navegacion.jar!/avatars/avatar1.png</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/poiupv/FXMLoginController.java</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/CSS/Editar%20Perfil.css</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/resources/Screenshot%202022-05-04%20at%2021.29.46.png</file>
-            <file>file:/C:/Users/javie/Desktop/University/2º%20Curso/2º%20Cuatrimestre/IPC/Prácticas/Entregable/LLJ-Ipc/POI_UPV/src/CSS/LogIn+Signup.css</file>
+            <file>file:/Users/lluis/Documents/Carrera/2ndo/2ndo%20cuatri/IPC/LLJ-Ipc/POI_UPV/src/poiupv/PoiUPVApp.java</file>
+            <file>file:/Users/lluis/Documents/Carrera/2ndo/2ndo%20cuatri/IPC/LLJ-Ipc/POI_UPV/src/poiupv/FXMLSignUpController.java</file>
+            <file>file:/Users/lluis/Documents/Carrera/2ndo/2ndo%20cuatri/IPC/LLJ-Ipc/POI_UPV/src/poiupv/FXMLDocumentController.java</file>
+            <file>file:/Users/lluis/Documents/Carrera/2ndo/2ndo%20cuatri/IPC/LLJ-Ipc/POI_UPV/src/poiupv/FXMLEditarPerfilController.java</file>
         </group>
     </open-files>
 </project-private>

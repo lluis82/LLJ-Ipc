@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLEditarPerfilController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLEditarPerfilController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" styleClass="primary-color" stylesheets="@../CSS/Editar%20Perfil.css" BorderPane.alignment="CENTER">
          <children>
@@ -25,7 +25,7 @@
                         <Image url="@../resources/avatars/avatar3.png" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" text="Label" textFill="WHITE">
+                  <Label fx:id="labelAvatar" alignment="CENTER" onMouseClicked="#getAvatar" text="Label" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -98,7 +98,7 @@
                               <Image url="@../resources/icons/login.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="32.0" prefWidth="180.0" text="Acerca De" textFill="WHITE">
+                        <Label fx:id="labelAD" onMouseClicked="#acercaDe" prefHeight="32.0" prefWidth="180.0" text="Acerca De" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -112,7 +112,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Atrás" />
+                  <Button fx:id="buttonAtras" alignment="CENTER" mnemonicParsing="false" onAction="#atras" prefHeight="50.0" prefWidth="100.0" text="Atrás" />
                </children>
             </VBox>
          </children>
