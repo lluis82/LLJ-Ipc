@@ -76,7 +76,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button mnemonicParsing="false" onAction="#handleBArc">
                      <graphic>
                         <ImageView fx:id="buttonArch" fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -85,7 +85,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button mnemonicParsing="false" onAction="#handleBText">
                      <graphic>
                         <ImageView fx:id="buttonText" fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
