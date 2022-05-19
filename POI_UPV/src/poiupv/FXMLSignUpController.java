@@ -138,10 +138,10 @@ public class FXMLSignUpController implements Initializable {
      * @param textField edit text added to allow user to introduce the value
      * @param boolProp property which stores if the value is correct or not
      */
-    private void manageErrorDatePicker(Label errorLabel, DatePicker datePicker, BooleanProperty boolProp ){
+    private void manageErrorDatePicker(Label errorLabel, DatePicker datepicker, BooleanProperty boolProp ){
         boolProp.setValue(Boolean.FALSE);
-        showErrorMessageDatePicker(errorLabel,datePicker);
-        datePicker.requestFocus();
+        showErrorMessageDatePicker(errorLabel,datepicker);
+        datepicker.requestFocus();
  
     }
     /**
@@ -151,9 +151,9 @@ public class FXMLSignUpController implements Initializable {
      * @param textField edit text added to allow user to introduce the value
      * @param boolProp property which stores if the value is correct or not
      */
-    private void manageCorrectDatePicker(Label errorLabel, DatePicker datePicker, BooleanProperty boolProp ){
+    private void manageCorrectDatePicker(Label errorLabel, DatePicker datepicker, BooleanProperty boolProp ){
         boolProp.setValue(Boolean.TRUE);
-        hideErrorMessageDatePicker(errorLabel,datePicker);
+        hideErrorMessageDatePicker(errorLabel,datepicker);
         
     }
     
@@ -188,10 +188,10 @@ public class FXMLSignUpController implements Initializable {
      * @param errorLabel
      * @param textField 
      **/
-    private void showErrorMessageDatePicker(Label errorLabel, DatePicker datePicker)
+    private void showErrorMessageDatePicker(Label errorLabel, DatePicker datepicker)
     {
         errorLabel.visibleProperty().set(true);
-        datePicker.styleProperty().setValue("-fx-background-color: #FCE5E0");    
+        datepicker.styleProperty().setValue("-fx-background-color: #FCE5E0");    
     }
     /**
      * Changes the background of the edit to the default value
@@ -199,10 +199,10 @@ public class FXMLSignUpController implements Initializable {
      * @param errorLabel
      * @param datePicker 
      */
-    private void hideErrorMessageDatePicker(Label errorLabel, DatePicker datePicker)
+    private void hideErrorMessageDatePicker(Label errorLabel, DatePicker datepicker)
     {
         errorLabel.visibleProperty().set(false);
-        datePicker.styleProperty().setValue("");
+        datepicker.styleProperty().setValue("");
     }
 
     
@@ -297,24 +297,32 @@ public class FXMLSignUpController implements Initializable {
     
     private boolean checkEditUsername() {
         boolean correct = true;
-        if (!checkNickName(eusername.textProperty().getValueSafe()) && !t.exitsNickName(eusername.textProperty().getValueSafe())) {
+        if (!checkNickName(eusername.textProperty().getValueSafe()) || t.exitsNickName(eusername.textProperty().getValueSafe())) {
             manageError(lIncorrectUsername, eusername, validUsername);
             correct = false;
+            if (t.exitsNickName(eusername.textProperty().getValueSafe())) {
+                lIncorrectUsername.setText("User already registered.");
+            } else {
+                lIncorrectUsername.setText("Incorrect username. It has to be between 6 and 15 characters including \"-\" and \"_\" without blanks.");
+            }
         }
-        else { manageCorrect(lIncorrectUsername, eusername, validUsername); }
+        else {
+            manageCorrect(lIncorrectUsername, eusername, validUsername);
+        }
         return correct;
     }
     
     private boolean checkEditDate() {
         boolean correct = true;
-        LocalDate date = LocalDate.now().minusYears(16)/*.plusDays(1)*/;
-        LocalDate date2 = datePicker.getValue();
-        if (!date.isAfter(date2)) {
-            manageErrorDatePicker(lIncorrectDate, datePicker, validDate);
-            //datePicker.textProperty().setValue("");
-            datePicker.requestFocus();
-            correct = false;
-        } else { manageCorrectDatePicker(lIncorrectDate, datePicker, validDate); }
+            LocalDate date = LocalDate.now().minusYears(16)/*.plusDays(1)*/;
+            LocalDate date2 = datePicker.getValue();
+            if (date2 == null || !date.isAfter(date2)) {
+                manageErrorDatePicker(lIncorrectDate, datePicker, validDate);
+                datePicker.getEditor().clear();
+                datePicker.setValue(null);
+                datePicker.requestFocus();
+                correct = false;
+            } else { manageCorrectDatePicker(lIncorrectDate, datePicker, validDate); }
         return correct;
     }
     
