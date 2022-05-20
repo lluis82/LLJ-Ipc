@@ -55,6 +55,7 @@ public class FXMLoginController implements Initializable {
     @FXML
     private Button buttonCreateAccount;
     Navegacion t;
+    Transfer transfer;
     
     /**
      * Updates the boolProp to false.Changes to red the background of the edit. 
@@ -101,8 +102,19 @@ public class FXMLoginController implements Initializable {
     @FXML
     private void handleBAcceptonAction(ActionEvent event) throws IOException {
         String nick = eemail.getText();
-        if (t.loginUser(nick, epassword.getText())==null){lIncorrectPass.setVisible(true); lIncorrectEmail.setVisible(true);}
-        else loadStage("/FXML/FXMLDocument.fxml", event);
+        if (t.loginUser(nick, epassword.getText())==null){
+            lIncorrectPass.setVisible(true); 
+            lIncorrectEmail.setVisible(true);
+            eemail.setText("");
+            epassword.setText("");
+        }
+        else {
+            transfer = new Transfer();
+            transfer.setUser(nick);
+            
+            System.out.println(transfer.getUser()+ " " );
+            loadStage("/FXML/FXMLDocument.fxml", event);
+        }
     }
 
     @FXML

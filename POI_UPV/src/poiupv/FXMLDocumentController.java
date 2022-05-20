@@ -114,7 +114,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Pane paneCarta;
     Circle c;
-    @FXML
     private ListView<Problem> lvProblemas;
     Line linePainting;
     Circle circlePainting;
@@ -124,7 +123,22 @@ public class FXMLDocumentController implements Initializable {
     boolean isText;
     boolean isPoint;
     double inicioXArc;
-    
+    @FXML
+    private Label labelEnucnciado;
+    @FXML
+    private ImageView transportador;
+    double X_inicial;
+    double Y_inicial;
+    double xt;
+    double yt;
+    double tbaseX;
+    double tbaseY;
+    @FXML
+    private Button buttonListProblems;
+    @FXML
+    private Button buttonRandom;
+    @FXML
+    private Label enunciado;
     
     @FXML
     void zoomIn(ActionEvent event) {
@@ -211,17 +225,18 @@ public class FXMLDocumentController implements Initializable {
         
         
         try {
-            t = Navegacion.getSingletonNavegacion();
-            
+            List<Problem> l = Navegacion.getSingletonNavegacion().getProblems();
+            System.out.println(l);
+            listaObservable = FXCollections.observableList(l);
+
         } catch (NavegacionDAOException ex) {
             Logger.getLogger(FXMLoginController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("error");
         }
         
-        List<Problem> l = t.getProblems();
-        listaObservable = FXCollections.observableList(l);
-        lvProblemas.setItems(listaObservable);
-        System.out.println(listaObservable);
+       
+        //lvProblemas.setItems(listaObservable);
+     
         
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
     }
@@ -395,7 +410,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void problemas(ActionEvent event) {
-        lvProblemas.getItems().addAll(listaObservable);
+//        lvProblemas.getItems().addAll(listaObservable);
         System.out.println(listaObservable);
     }
 
@@ -567,11 +582,46 @@ public class FXMLDocumentController implements Initializable {
         isLine = false;
         isArc = false;
         //isText = false;
+        isPoint = false;
     }
 
     @FXML
     private void mouseMovedAction(MouseEvent event) {
         //isText = false;
+    }
+
+    @FXML
+    private void moverTransportador(MouseEvent event) {
+        double despX = event.getSceneX() - X_inicial;
+        double despY = event.getSceneY() - Y_inicial;
+        transportador.setTranslateX(despX - tbaseX);
+        transportador.setTranslateY(despY - tbaseY);
+        event.consume();
+
+
+
+
+    }
+
+    @FXML
+    private void pressedTransportador(MouseEvent event) {
+        X_inicial = event.getSceneX();
+        Y_inicial = event.getSceneY();
+        tbaseX = transportador.getTranslateX();
+        tbaseY = transportador.getTranslateY();
+        event.consume();
+    }
+
+    @FXML
+    private void SelectProblem(ActionEvent event) {
+    }
+
+    @FXML
+    private void getRandomProblem(ActionEvent event) {
+        int i = (int) Math.random();
+        
+        enunciado.setText(listaObservable.get(i).toString());
+        
     }
 
     

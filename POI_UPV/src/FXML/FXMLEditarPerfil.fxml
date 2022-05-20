@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,7 +27,7 @@
                         <Image url="@../resources/avatars/avatar3.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="labelAvatar" alignment="CENTER" onMouseClicked="#getAvatar" text="Label" textFill="WHITE">
+                  <Label fx:id="labelAvatar" alignment="CENTER" onMouseClicked="#getAvatar" text="Edit Avatar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -56,23 +58,6 @@
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" styleClass="selected" stylesheets="@../CSS/Editar%20Perfil.css">
-                     <children>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/icons/login.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="32.0" prefWidth="180.0" text="Ajustes" textFill="WHITE">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                        </Label>
-                     </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" styleClass="selected" stylesheets="@../CSS/Editar%20Perfil.css">
                      <children>
@@ -142,7 +127,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" />
+                              <TextField fx:id="tfNombre" maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" promptText="tfNombre" />
                            </children>
                         </VBox>
                      </children>
@@ -159,13 +144,30 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" />
+                              <PasswordField fx:id="tfContra" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="tfContra" />
                            </children>
                         </VBox>
                      </children>
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
+                  </HBox>
+                  <HBox alignment="BOTTOM_LEFT" layoutX="20.0" layoutY="119.0" prefHeight="29.0" prefWidth="780.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="780.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="148.0" text="Repetir Contraseña">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField fx:id="tfContra2" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="tfRContra" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="29.0" prefWidth="780.0">
                      <children>
@@ -176,7 +178,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" />
+                              <TextField fx:id="tfCorreo" maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" />
                            </children>
                         </VBox>
                      </children>
@@ -193,7 +195,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="300.0" prefHeight="26.0" prefWidth="190.0" />
+                              <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="138.0" />
                            </children>
                         </VBox>
                      </children>
@@ -205,7 +207,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="Confirmar cambios" />
+                  <Button fx:id="buttonConfirmar" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="Confirmar cambios" />
                </children>
             </HBox>
          </children>

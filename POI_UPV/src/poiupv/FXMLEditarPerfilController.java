@@ -24,7 +24,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +36,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import model.Navegacion;
+import poiupv.Transfer.*;
 
 /**
  * FXML Controller class
@@ -54,6 +58,20 @@ public class FXMLEditarPerfilController implements Initializable {
     private Label labelAD;
     @FXML
     private Label labelAvatar;
+    @FXML
+    private TextField tfNombre;
+    @FXML
+    private PasswordField tfContra;
+    @FXML
+    private PasswordField tfContra2;
+    @FXML
+    private TextField tfCorreo;
+    @FXML
+    private DatePicker datepicker;
+    @FXML
+    private Button buttonConfirmar;
+    Transfer transfer = new Transfer();
+   
 
     /**
      * Initializes the controller class.
@@ -65,6 +83,8 @@ public class FXMLEditarPerfilController implements Initializable {
         } catch (NavegacionDAOException ex) {
             java.util.logging.Logger.getLogger(FXMLoginController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+        tfNombre.setText(transfer.getUser());
     }    
 
     @FXML
@@ -174,6 +194,11 @@ public class FXMLEditarPerfilController implements Initializable {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Open File");
         File file = chooser.showOpenDialog(new Stage());
+        String xd="file:/Users/lluis/Documents/Carrera/2ndo/2ndo%20cuatri/IPC/LLJ-Ipc/POI_UPV/build/classes/resources/avatars";
+        //String xd = imageviewAvatar.getImage().getUrl();
+        File recordsDir = new File(xd);
+        chooser.setInitialDirectory(recordsDir);
+        System.out.print(chooser.getInitialDirectory());
         if (file != null) {
 //            String imagepath = file.getPath();
 //            System.out.println("file:" + imagepath);
