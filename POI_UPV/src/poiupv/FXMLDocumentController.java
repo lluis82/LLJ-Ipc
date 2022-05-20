@@ -9,6 +9,7 @@ import DBAccess.NavegacionDAOException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -93,13 +96,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label posicion;
     @FXML
-    private Button buttonPoint;
+    private ToggleButton buttonPoint;
     @FXML
-    private Button buttonLine;
+    private ToggleButton buttonLine;
     @FXML
-    private ImageView buttonArch;
-    @FXML
-    private ImageView buttonText;
+    private ToggleButton buttonText;
     @FXML
     private ImageView imageviewCarta;
     double x;
@@ -118,10 +119,6 @@ public class FXMLDocumentController implements Initializable {
     Line linePainting;
     Circle circlePainting;
     TextField texto = new TextField();
-    boolean isLine;
-    boolean isArc;
-    boolean isText;
-    boolean isPoint;
     double inicioXArc;
     @FXML
     private Label labelEnucnciado;
@@ -139,6 +136,11 @@ public class FXMLDocumentController implements Initializable {
     private Button buttonRandom;
     @FXML
     private Label enunciado;
+    @FXML
+    private ToggleButton buttonArc;
+    @FXML
+    private ToggleGroup toggleGroup;
+    private ObservableList<Object> deleteObject;
     
     @FXML
     void zoomIn(ActionEvent event) {
@@ -269,7 +271,7 @@ public class FXMLDocumentController implements Initializable {
     private void acercaDe(ActionEvent event) {
         Alert mensaje= new Alert(Alert.AlertType.INFORMATION);
         mensaje.setTitle("Acerca de");
-        mensaje.setHeaderText("IPC - 2022");
+        mensaje.setContentText("Proyecto IPC 2022 - Javier Pérez Asensio & Lluis Terol Martin");
         mensaje.showAndWait();
     }
 
@@ -282,7 +284,7 @@ public class FXMLDocumentController implements Initializable {
             mensaje.setHeaderText("¿Seguro que quiere borrar todo lo apuntado en el mapa?");
             Optional<ButtonType> result = mensaje.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                //Borrar todo lo dibujado/escrito
+                //zoomGroup.getChildren().removeAll(deleteObject);
             }
 //      }
     }
@@ -363,27 +365,6 @@ public class FXMLDocumentController implements Initializable {
         } else {
             System.out.println("CANCEL");
         }
-    }
-
-
-    @FXML
-    private void handleBLine(ActionEvent event) {
-        isLine = true;
-    }
-    
-    @FXML
-    private void handleBText(ActionEvent event) {
-        isText = true;
-    }
-
-    @FXML
-    private void handleBArc(ActionEvent event) {
-        isArc = true;
-    }
-    
-    @FXML
-    private void handleBPunto(ActionEvent event) {
-        isPoint = true;
     }
     
     @FXML
@@ -468,16 +449,12 @@ public class FXMLDocumentController implements Initializable {
     private void mousePressedAction(MouseEvent event) {
         
         /*-----------LINEA-----------*/
-        if (isLine && event.isPrimaryButtonDown()) {
+        if (buttonLine.isSelected() && event.isPrimaryButtonDown()) {
             linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
             zoomGroup.getChildren().add(linePainting);
-//            while (event.isDragDetect()) {
-//                linePainting.setEndX(event.getX());
-//                linePainting.setEndY(event.getY());
-//            }
-//            event.consume();
-        }
-        linePainting.setOnContextMenuRequested(e -> {
+            //deleteObject.add(linePainting);
+
+            linePainting.setOnContextMenuRequested(e -> {
             ContextMenu menuContext = new ContextMenu();
             MenuItem strokeItem = new MenuItem("Tamaño");
             MenuItem colorItem = new MenuItem("Color");
@@ -485,75 +462,88 @@ public class FXMLDocumentController implements Initializable {
             menuContext.getItems().add(borrarItem);
             borrarItem.setOnAction(ev -> {
                 zoomGroup.getChildren().remove((Node) e.getSource());
+                //deleteObject.remove((Node) e.getSource());
                 ev.consume();
             });
             menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
             e.consume();
         });
+        }
         
         
         
         
         
         /*-----------ARCO-----------*/
-        if (isArc && event.isPrimaryButtonDown()) {
+        if (buttonArc.isSelected() && event.isPrimaryButtonDown()) {
             circlePainting = new Circle(1);
             circlePainting.setStroke(Color.RED);
             circlePainting.setFill(Color.TRANSPARENT);
             
             zoomGroup.getChildren().add(circlePainting);
+            //deleteObject.add(circlePainting);
             
             circlePainting.setCenterX(event.getX());
             circlePainting.setCenterY(event.getY());
             inicioXArc = event.getX();
-        }
-        
-        circlePainting.setOnContextMenuRequested(e -> {
-            ContextMenu menuContext = new ContextMenu();
-            MenuItem strokeItem = new MenuItem("Tamaño");
-            MenuItem colorItem = new MenuItem("Color");
-            MenuItem borrarItem = new MenuItem("Eliminar");
-            menuContext.getItems().add(borrarItem);
-            borrarItem.setOnAction(ev -> {
-                zoomGroup.getChildren().remove((Node) e.getSource());
-                ev.consume();
+            
+            circlePainting.setOnContextMenuRequested(e -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem strokeItem = new MenuItem("Tamaño");
+                MenuItem colorItem = new MenuItem("Color");
+                MenuItem borrarItem = new MenuItem("Eliminar");
+                menuContext.getItems().add(borrarItem);
+                borrarItem.setOnAction(ev -> {
+                    zoomGroup.getChildren().remove((Node) e.getSource());
+                    //deleteObject.remove((Node) e.getSource());
+                    ev.consume();
+                });
+                menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
+                e.consume();
             });
-            menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
-            e.consume();
-        });
+        }
         
         
         
         
         
         /*-----------TEXTO-----------*/
-        if (isText && event.isPrimaryButtonDown()) {
+        if (buttonText.isSelected() && event.isPrimaryButtonDown()) {
             zoomGroup.getChildren().add(texto);
+            //deleteObject.add(texto);
             texto.setLayoutX(event.getX());
             texto.setLayoutY(event.getY());
             texto.requestFocus();
+            
+            
+            texto.setOnAction(e -> {
+                Text textoT = new Text(texto.getText());
+                textoT.setX(texto.getLayoutX());
+                textoT.setY(texto.getLayoutY());
+                textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: 40;");
+                zoomGroup.getChildren().add(textoT);
+                texto.setText("");
+                zoomGroup.getChildren().remove(texto);
+                //deleteObject.remove(texto);
+                e.consume();
+                
+                buttonText.setSelected(false);
+            });
         }
         
-        texto.setOnAction(e -> {
-            Text textoT = new Text(texto.getText());
-            textoT.setX(texto.getLayoutX());
-            textoT.setY(texto.getLayoutY());
-            textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: 40;");
-            zoomGroup.getChildren().add(textoT);
-            zoomGroup.getChildren().remove(texto);
-            e.consume();
-        });
-        
         /*-----------PUNTO-----------*/
-        if (isPoint && event.isPrimaryButtonDown()) {
+        if (buttonPoint.isSelected() && event.isPrimaryButtonDown()) {
             c = new Circle(10);
             c.setStroke(Color.BLUE);
             c.setFill(Color.LIGHTBLUE);
             
             zoomGroup.getChildren().add(c);
+            //deleteObject.add(c);
             
             c.setCenterX(event.getX());
             c.setCenterY(event.getY());
+            
+            buttonPoint.setSelected(false);
         }
         
     }
@@ -562,7 +552,7 @@ public class FXMLDocumentController implements Initializable {
     private void mouseDraggedAction(MouseEvent event) {
         
         /*-----------LINEA-----------*/
-        if (isLine && event.isPrimaryButtonDown()) {
+        if (buttonLine.isSelected() && event.isPrimaryButtonDown()) {
             linePainting.setEndX(event.getX());
             linePainting.setEndY(event.getY());
             event.consume();
@@ -570,7 +560,7 @@ public class FXMLDocumentController implements Initializable {
         
         
         /*-----------ARCO-----------*/
-        if (isArc && event.isPrimaryButtonDown()) {
+        if (buttonArc.isSelected() && event.isPrimaryButtonDown()) {
             double radio = Math.abs(event.getX() - inicioXArc);
             circlePainting.setRadius(radio);
             event.consume();
@@ -579,15 +569,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void mouseReleasedAction(MouseEvent event) {
-        isLine = false;
-        isArc = false;
-        //isText = false;
-        isPoint = false;
+        buttonLine.setSelected(false);
+        buttonArc.setSelected(false);
     }
 
     @FXML
     private void mouseMovedAction(MouseEvent event) {
-        //isText = false;
+        
     }
 
     @FXML

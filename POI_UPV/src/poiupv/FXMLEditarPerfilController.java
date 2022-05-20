@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -24,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -35,6 +39,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import javafx.util.converter.LocalDateStringConverter;
 import model.Navegacion;
 import poiupv.Transfer.*;
 
@@ -85,6 +90,29 @@ public class FXMLEditarPerfilController implements Initializable {
         }
         
         tfNombre.setText(transfer.getUser());
+        
+        
+        
+        // Formato -> https://acodigo.blogspot.com/2017/08/datepicker-control-javafx-para-manejar.html
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        datepicker.setConverter(new LocalDateStringConverter(formatter, null));
+        
+        SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy");
+        
+        datepicker.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                   LocalDate today = LocalDate.now().minusYears(16);
+                   setDisable(empty || date.compareTo(today) > 0 );
+                }
+            };
+        });
+        
+        datepicker.setShowWeekNumbers(false);
+        
+        
     }    
 
     @FXML
@@ -184,7 +212,7 @@ public class FXMLEditarPerfilController implements Initializable {
         alert.setTitle("Acerca De");
         alert.setHeaderText("Acerca De");
         alert.setContentText("Proyecto IPC 2022 - Javier Pérez Asensio & Lluis Terol Martin");
-        alert.show();
+        alert.showAndWait();
     }
 
     
@@ -193,18 +221,21 @@ public class FXMLEditarPerfilController implements Initializable {
     private void getAvatar(MouseEvent event) throws MalformedURLException {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Open File");
-        File file = chooser.showOpenDialog(new Stage());
-        String xd="file:/Users/lluis/Documents/Carrera/2ndo/2ndo%20cuatri/IPC/LLJ-Ipc/POI_UPV/build/classes/resources/avatars";
-        //String xd = imageviewAvatar.getImage().getUrl();
-        File recordsDir = new File(xd);
+        chooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.gif"));
+        
+        String path = "src/resources/avatars";
+        File recordsDir = new File(path);
         chooser.setInitialDirectory(recordsDir);
-        System.out.print(chooser.getInitialDirectory());
+        
+        File file = chooser.showOpenDialog(new Stage());
+        
         if (file != null) {
 //            String imagepath = file.getPath();
 //            System.out.println("file:" + imagepath);
             String imagepath = file.toURI().toURL().toString();
             Image image = new Image(imagepath);
-            if(image.getHeight()>500 || image.getWidth()>500){
+            if(image.getHeight()>800 || image.getWidth()>800){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error imagen");
                 alert.setHeaderText("Por favor selecciona una foto que no supere 500x500");

@@ -7,10 +7,12 @@ package poiupv;
 
 import DBAccess.NavegacionDAOException;
 import com.sun.javafx.logging.PlatformLogger.Level;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.System.Logger;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +33,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -42,6 +46,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -230,27 +236,26 @@ public class FXMLSignUpController implements Initializable {
         
         BooleanBinding validFields = Bindings.and(validEmail, validPassword)
                  .and(equalPasswords);
-         
-
-
-//        bAccept.disableProperty().bind(
-//                Bindings.not(validFields)
-//        );
         
-//        bCancel.setOnAction((event) -> {
-//            bCancel.getScene().getWindow().hide();
-//        });
 
         // Formato -> https://acodigo.blogspot.com/2017/08/datepicker-control-javafx-para-manejar.html
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         datePicker.setConverter(new LocalDateStringConverter(formatter, null));
         
-        try{
-            SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy");
-            Date date1 = sdformat.parse("01/02/2018");
-            } catch (ParseException ex) {
-        }
+        SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy");
         
+        datePicker.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                   LocalDate today = LocalDate.now().minusYears(16);
+                   setDisable(empty || date.compareTo(today) > 0 );
+                }
+            };
+        });
+        
+        datePicker.setShowWeekNumbers(false);
         
         try {
             t = Navegacion.getSingletonNavegacion();
@@ -315,7 +320,7 @@ public class FXMLSignUpController implements Initializable {
     
     private boolean checkEditDate() {
         boolean correct = true;
-            LocalDate date = LocalDate.now().minusYears(16)/*.plusDays(1)*/;
+            LocalDate date = LocalDate.now().minusYears(16);
             LocalDate date2 = datePicker.getValue();
             if (date2 == null || !date.isAfter(date2)) {
                 manageErrorDatePicker(lIncorrectDate, datePicker, validDate);
@@ -329,11 +334,40 @@ public class FXMLSignUpController implements Initializable {
     
 
         @FXML
-    private void changeAvatarButton(ActionEvent event) throws FileNotFoundException {
+    private void changeAvatarButton(ActionEvent event) throws FileNotFoundException, MalformedURLException {
         
-        String url = "/resources/avatars/avatar1.png";
-        Image avatar = new Image(new FileInputStream(url));
-        imageAvatar.imageProperty().setValue(avatar);
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Open File");
+        chooser.getExtensionFilters().addAll(
+        new ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.gif"));
+        
+        String path = "src/resources/avatars";
+        File recordsDir = new File(path);
+        chooser.setInitialDirectory(recordsDir);
+        
+        File file = chooser.showOpenDialog(new Stage());
+        
+        if (file != null) {
+            String imagepath = file.toURI().toURL().toString();
+            Image image = new Image(imagepath);
+            if(image.getHeight()>800 || image.getWidth()>800){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error imagen");
+                alert.setHeaderText("Por favor selecciona una foto que no supere 500x500");
+                alert.showAndWait();
+                changeAvatarButton(event);
+            }
+            else {
+//                t.setAvatar(image); Falta actualizar en la base de datos
+                imageAvatar.setImage(image);
+            } 
+            
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info Imagen");
+            alert.setHeaderText("Por favor selecciona un archivo");
+            alert.showAndWait();
+        }
         
     }
     

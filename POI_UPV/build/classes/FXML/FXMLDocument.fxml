@@ -9,6 +9,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -20,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="1400.0" prefWidth="1800.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -58,7 +60,7 @@
             <Button mnemonicParsing="false" onAction="#problemas" text="problemas" />
             <ToolBar prefHeight="46.0" prefWidth="195.0">
               <items>
-                <Button fx:id="buttonPoint" mnemonicParsing="false" onAction="#handleBPunto">
+                  <ToggleButton fx:id="buttonPoint" mnemonicParsing="false">
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -66,8 +68,11 @@
                            </image>
                         </ImageView>
                      </graphic>
-                  </Button>
-                  <Button fx:id="buttonLine" mnemonicParsing="false" onAction="#handleBLine">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="toggleGroup" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="buttonLine" mnemonicParsing="false" toggleGroup="$toggleGroup">
                      <graphic>
                         <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -75,27 +80,36 @@
                            </image>
                         </ImageView>
                      </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#handleBArc">
+                  </ToggleButton>
+                  <ToggleButton fx:id="buttonArc" mnemonicParsing="false" toggleGroup="$toggleGroup">
                      <graphic>
-                        <ImageView fx:id="buttonArch" fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../resources/Screenshot%202022-05-04%20at%2021.29.06.png" />
                            </image>
                         </ImageView>
                      </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#handleBText">
+                  </ToggleButton>
+                  <ToggleButton fx:id="buttonText" mnemonicParsing="false" toggleGroup="$toggleGroup">
                      <graphic>
-                        <ImageView fx:id="buttonText" fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../resources/Screenshot%202022-05-04%20at%2021.33.45.png" />
                            </image>
                         </ImageView>
                      </graphic>
-                  </Button>
+                  </ToggleButton>
               </items>
             </ToolBar>
+            <Button mnemonicParsing="false" onAction="#borrarMapa">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/papelera.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Label text="Zoom" />
             <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
             <Slider fx:id="zoom_slider" blockIncrement="0.1" max="0.8" min="0.12" value="0.46" HBox.hgrow="SOMETIMES" />
