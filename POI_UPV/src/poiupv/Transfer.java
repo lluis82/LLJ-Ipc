@@ -19,7 +19,7 @@ public class Transfer {
      * @return the user
      */
     public String getUser() {
-        return user;
+        return this.user;
     }
 
     /**

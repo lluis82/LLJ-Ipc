@@ -39,6 +39,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -121,6 +122,8 @@ public class FXMLDocumentController implements Initializable {
     Circle c;
     private ListView<Problem> lvProblemas;
     Line linePainting;
+    Line linePainting_1;
+    Line linePainting_2;
     Circle circlePainting;
     TextField texto = new TextField();
     double inicioXArc;
@@ -144,7 +147,7 @@ public class FXMLDocumentController implements Initializable {
     private ToggleButton buttonArc;
     @FXML
     private ToggleGroup toggleGroup;
-    private ObservableList<Object> deleteObject;
+    private ObservableList<Node> deleteObject;
     private ObservableList<String> listaObservableProblemsString;
     Random rnd;
     @FXML
@@ -160,6 +163,10 @@ public class FXMLDocumentController implements Initializable {
     List<Problem> l;
     @FXML
     private ToggleButton btrans;
+    @FXML
+    private ToggleButton buttonBorder;
+    @FXML
+    private ColorPicker colorPicker;
     
     
     
@@ -298,15 +305,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void borrarMapa(ActionEvent event) {
         /* Solo si el mapa tiene algo dibujado/escrito */
-//      if (isMapDrawn) {
+      if (zoomGroup.getChildren().get(1) != null) {
             Alert mensaje = new Alert(Alert.AlertType.CONFIRMATION);
             mensaje.setTitle("Borrar dibujado");
             mensaje.setHeaderText("¿Seguro que quiere borrar todo lo apuntado en el mapa?");
             Optional<ButtonType> result = mensaje.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                //zoomGroup.getChildren().removeAll(deleteObject);
+                zoomGroup.getChildren().clear();
+                zoomGroup.getChildren().add(paneCarta);
             }
-//      }
+      }
     }
 
     private void getCoords(MouseEvent event) {
@@ -524,6 +532,8 @@ public class FXMLDocumentController implements Initializable {
             buttonPoint.setSelected(false);
         }
         
+        
+        
         /*-----------TRANSPORTADOR-----------*/
         if(btrans.isSelected() && event.isPrimaryButtonDown()){
             transportador.setVisible(true);
@@ -539,6 +549,20 @@ public class FXMLDocumentController implements Initializable {
             transportador.setDisable(true);
             transportador.setMouseTransparent(true);
         }
+        
+        
+        
+        /*-----------RAYA-----------*/
+        if (buttonBorder.isSelected() && event.isPrimaryButtonDown()) {
+            linePainting_1 = new Line(0, event.getY(), 8500, event.getY());
+            linePainting_2 = new Line(event.getX(), 0, event.getX(), 5300);
+            zoomGroup.getChildren().add(linePainting_1);
+            zoomGroup.getChildren().add(linePainting_2);
+            
+            event.consume();
+            
+            buttonBorder.setSelected(false);
+        }
     }
 
     @FXML
@@ -548,6 +572,7 @@ public class FXMLDocumentController implements Initializable {
         if (buttonLine.isSelected() && event.isPrimaryButtonDown()) {
             linePainting.setEndX(event.getX());
             linePainting.setEndY(event.getY());
+            linePainting.setFill(colorPicker.getValue());
             event.consume();
         }
         
@@ -638,6 +663,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void enviarRespuesta(ActionEvent event) {
         
+    }
+
+    @FXML
+    private void colorChange(ActionEvent event) {
+//        zoomGroup.getChildren().getClass().setFill(colorPicker.getValue());
+//        zoomGroup.getChildren().sorted().setFill(colorPicker.getValue());
     }
 
     

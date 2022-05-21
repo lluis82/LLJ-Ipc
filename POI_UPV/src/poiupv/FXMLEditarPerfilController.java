@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -41,6 +43,7 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
 import model.Navegacion;
+import model.User;
 import poiupv.Transfer.*;
 
 /**
@@ -113,6 +116,14 @@ public class FXMLEditarPerfilController implements Initializable {
         datepicker.setShowWeekNumbers(false);
         
         
+        String user = transfer.getUser();
+//        String user = t.toString();
+        System.out.println(user);
+        
+        User pr = t.getUser(user);
+        System.out.println(pr);
+        
+        //System.out.println(pr.toString());
     }    
 
     @FXML

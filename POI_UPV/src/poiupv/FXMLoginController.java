@@ -25,11 +25,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import static javafx.scene.input.KeyCode.ENTER;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import model.Navegacion;
 import static model.Navegacion.getSingletonNavegacion;
+import poiupv.Transfer.*;
 
 
 /**
@@ -97,6 +100,11 @@ public class FXMLoginController implements Initializable {
         buttonCancel.setOnAction((event) -> {
             buttonCancel.getScene().getWindow().hide();
         });
+        
+        buttonAccept.setOnKeyTyped((event) -> {
+            if (event.getCode() == ENTER) {
+            }
+        });
     }    
 
     @FXML
@@ -111,7 +119,7 @@ public class FXMLoginController implements Initializable {
         else {
             transfer = new Transfer();
             transfer.setUser(nick);
-            
+
             System.out.println(transfer.getUser()+ " " );
             loadStage("/FXML/FXMLDocument.fxml", event);
         }
@@ -164,5 +172,6 @@ public class FXMLoginController implements Initializable {
             }
         });
     }
+
     
 }

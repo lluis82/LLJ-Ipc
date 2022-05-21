@@ -57,6 +57,7 @@ import model.Navegacion;
 import static model.User.checkEmail;
 import static model.User.checkNickName;
 import static model.User.checkPassword;
+import poiupv.Transfer.*;
 
 
 /**
@@ -110,6 +111,7 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private ImageView imageAvatar;
    
+    Transfer transfer = new Transfer();
     
     
     /**
@@ -358,7 +360,6 @@ public class FXMLSignUpController implements Initializable {
                 changeAvatarButton(event);
             }
             else {
-//                t.setAvatar(image); Falta actualizar en la base de datos
                 imageAvatar.setImage(image);
             } 
             
@@ -374,15 +375,19 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private void handleAcceptAction(ActionEvent event) throws IOException, NavegacionDAOException {
         
+        Image avatar = imageAvatar.getImage();
+        Image defAvat = new Image("/resources/avatars/default.png");
+        
         if (checkEditEmail() & (checkEditPass() && checkEquals()) & checkEditUsername() & checkEditDate()) {
             // Si la foto del avatar NO ha cambiado, usamos registerUser sin el Image avatar, sino, si
-//            if (/*la foto de avatar NO ha cambiado*/) {
+            if (avatar == defAvat) {
                 t.registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
                         epassword.textProperty().getValueSafe(), datePicker.getValue());
-//            } else {
-//                registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
-//                        epassword.textProperty().getValueSafe(), /*Image avatar*/, datePicker.getValue());
-//            }
+            } else {
+                t.registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
+                        epassword.textProperty().getValueSafe(), avatar, datePicker.getValue());
+            }
+            transfer.setUser(eusername.textProperty().getValueSafe());
             loadStage("/FXML/FXMLDocument.fxml", event);
         }
         

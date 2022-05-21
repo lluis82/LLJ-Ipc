@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -24,7 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -59,7 +60,7 @@
               </menus>
             </MenuBar>
             <Region HBox.hgrow="ALWAYS" />
-            <ToolBar prefHeight="46.0" prefWidth="241.0">
+            <ToolBar prefHeight="46.0" prefWidth="347.0">
               <items>
                   <ToggleButton fx:id="buttonPoint" mnemonicParsing="false">
                      <graphic>
@@ -100,11 +101,21 @@
                         </ImageView>
                      </graphic>
                   </ToggleButton>
-                  <ToggleButton fx:id="btrans" maxHeight="34.5" maxWidth="42.0" mnemonicParsing="false" prefHeight="34.5" prefWidth="42.0">
+                  <ToggleButton fx:id="btrans" maxHeight="34.5" maxWidth="42.0" mnemonicParsing="false" prefHeight="34.5" prefWidth="42.0" toggleGroup="$toggleGroup">
                      <graphic>
                         <ImageView fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </ToggleButton>
+                  <ToggleButton fx:id="buttonBorder" mnemonicParsing="false" toggleGroup="$toggleGroup">
+                     <graphic>
+                        <ImageView fitHeight="80.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Screenshot%202022-05-11%20at%2023.09.38.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ColorPicker fx:id="colorPicker" onAction="#colorChange" prefHeight="35.0" prefWidth="40.0" />
               </items>
             </ToolBar>
             <Button mnemonicParsing="false" onAction="#borrarMapa">
