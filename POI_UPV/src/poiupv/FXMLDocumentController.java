@@ -167,6 +167,18 @@ public class FXMLDocumentController implements Initializable {
     private ToggleButton buttonBorder;
     @FXML
     private ColorPicker colorPicker;
+    @FXML
+    private MenuButton strokePicker;
+    @FXML
+    private ToggleGroup strokeGroup;
+    @FXML
+    private RadioButton stroke25;
+    @FXML
+    private RadioButton stroke50;
+    @FXML
+    private RadioButton stroke75;
+    @FXML
+    private RadioButton stroke100;
     
     
     
@@ -268,6 +280,15 @@ public class FXMLDocumentController implements Initializable {
         //lvProblemas.setItems(listaObservable);
      
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
+        
+//        linePainting.setOnMouseEntered(event -> {
+//            linePainting.setFill(colorPicker.getValue());
+//        });
+//        
+//        colorPicker.setOnAction(event -> {
+//            linePainting.setFill(colorPicker.getValue());
+//        });
+
     }
 
     @FXML
@@ -437,18 +458,47 @@ public class FXMLDocumentController implements Initializable {
         /*-----------LINEA-----------*/
         if (buttonLine.isSelected() && event.isPrimaryButtonDown()) {
             linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+            
+            linePainting.setStroke(colorPicker.getValue());
+            
+            if (stroke25.isSelected()) {
+                linePainting.setStrokeWidth(3);
+            } else if (stroke75.isSelected()) {
+                linePainting.setStrokeWidth(9);
+            } else if (stroke100.isSelected()) {
+                linePainting.setStrokeWidth(15);
+            } else {
+                linePainting.setStrokeWidth(6);
+            }
+            
             zoomGroup.getChildren().add(linePainting);
-            //deleteObject.add(linePainting);
 
             linePainting.setOnContextMenuRequested(e -> {
             ContextMenu menuContext = new ContextMenu();
             MenuItem strokeItem = new MenuItem("Tamaño");
             MenuItem colorItem = new MenuItem("Color");
             MenuItem borrarItem = new MenuItem("Eliminar");
+            menuContext.getItems().add(strokeItem);
+            menuContext.getItems().add(colorItem);
             menuContext.getItems().add(borrarItem);
+            strokeItem.setOnAction(ev -> {
+                if (stroke25.isSelected()) {
+                    linePainting.setStrokeWidth(3);
+                } else if (stroke75.isSelected()) {
+                    linePainting.setStrokeWidth(9);
+                } else if (stroke100.isSelected()) {
+                    linePainting.setStrokeWidth(15);
+                } else {
+                    linePainting.setStrokeWidth(6);
+                }
+                ev.consume();
+            });
+            colorItem.setOnAction(ev -> {
+                linePainting.setStroke(colorPicker.getValue());
+                ev.consume();
+            });
             borrarItem.setOnAction(ev -> {
                 zoomGroup.getChildren().remove((Node) e.getSource());
-                //deleteObject.remove((Node) e.getSource());
                 ev.consume();
             });
             menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
@@ -463,11 +513,21 @@ public class FXMLDocumentController implements Initializable {
         /*-----------ARCO-----------*/
         if (buttonArc.isSelected() && event.isPrimaryButtonDown()) {
             circlePainting = new Circle(1);
-            circlePainting.setStroke(Color.RED);
+            circlePainting.setStroke(colorPicker.getValue());
+            
+            if (stroke25.isSelected()) {
+                circlePainting.setStrokeWidth(3);
+            } else if (stroke75.isSelected()) {
+                circlePainting.setStrokeWidth(9);
+            } else if (stroke100.isSelected()) {
+                circlePainting.setStrokeWidth(15);
+            } else {
+                circlePainting.setStrokeWidth(6);
+            }
+            
             circlePainting.setFill(Color.TRANSPARENT);
             
             zoomGroup.getChildren().add(circlePainting);
-            //deleteObject.add(circlePainting);
             
             circlePainting.setCenterX(event.getX());
             circlePainting.setCenterY(event.getY());
@@ -478,10 +538,27 @@ public class FXMLDocumentController implements Initializable {
                 MenuItem strokeItem = new MenuItem("Tamaño");
                 MenuItem colorItem = new MenuItem("Color");
                 MenuItem borrarItem = new MenuItem("Eliminar");
+                menuContext.getItems().add(strokeItem);
+                menuContext.getItems().add(colorItem);
                 menuContext.getItems().add(borrarItem);
+                strokeItem.setOnAction(ev -> {
+                    if (stroke25.isSelected()) {
+                        circlePainting.setStrokeWidth(3);
+                    } else if (stroke75.isSelected()) {
+                        circlePainting.setStrokeWidth(9);
+                    } else if (stroke100.isSelected()) {
+                        circlePainting.setStrokeWidth(15);
+                    } else {
+                        circlePainting.setStrokeWidth(6);
+                    }
+                    ev.consume();
+                });
+                colorItem.setOnAction(ev -> {
+                    circlePainting.setStroke(colorPicker.getValue());
+                    ev.consume();
+                });
                 borrarItem.setOnAction(ev -> {
                     zoomGroup.getChildren().remove((Node) e.getSource());
-                    //deleteObject.remove((Node) e.getSource());
                     ev.consume();
                 });
                 menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
@@ -496,7 +573,6 @@ public class FXMLDocumentController implements Initializable {
         /*-----------TEXTO-----------*/
         if (buttonText.isSelected() && event.isPrimaryButtonDown()) {
             zoomGroup.getChildren().add(texto);
-            //deleteObject.add(texto);
             texto.setLayoutX(event.getX());
             texto.setLayoutY(event.getY());
             texto.requestFocus();
@@ -506,28 +582,116 @@ public class FXMLDocumentController implements Initializable {
                 Text textoT = new Text(texto.getText());
                 textoT.setX(texto.getLayoutX());
                 textoT.setY(texto.getLayoutY());
-                textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: 40;");
+                textoT.setStyle("-fx-font-family: Gafata;");
+                textoT.setFill(colorPicker.getValue());
+                
+                if (stroke25.isSelected()) {
+                    textoT.setStyle("-fx-font-size: 20;");
+                } else if (stroke75.isSelected()) {
+                    textoT.setStyle("-fx-font-size: 60;");
+                } else if (stroke100.isSelected()) {
+                    textoT.setStyle("-fx-font-size: 80;");
+                } else {
+                    textoT.setStyle("-fx-font-size: 40;");
+                }
+                
                 zoomGroup.getChildren().add(textoT);
+                
+                textoT.setOnContextMenuRequested(ev -> {
+                    ContextMenu menuContext = new ContextMenu();
+                    MenuItem strokeItem = new MenuItem("Tamaño");
+                    MenuItem colorItem = new MenuItem("Color");
+                    MenuItem borrarItem = new MenuItem("Eliminar");
+                    menuContext.getItems().add(strokeItem);
+                    menuContext.getItems().add(colorItem);
+                    menuContext.getItems().add(borrarItem);
+                    strokeItem.setOnAction(eve -> {
+                        if (stroke25.isSelected()) {
+                            textoT.setStyle("-fx-font-size: 20;");
+                        } else if (stroke75.isSelected()) {
+                            textoT.setStyle("-fx-font-size: 60;");
+                        } else if (stroke100.isSelected()) {
+                            textoT.setStyle("-fx-font-size: 80;");
+                        } else {
+                            textoT.setStyle("-fx-font-size: 40;");
+                        }
+                        eve.consume();
+                    });
+                    colorItem.setOnAction(eve -> {
+                        textoT.setFill(colorPicker.getValue());
+                        eve.consume();
+                    });
+                    borrarItem.setOnAction(eve -> {
+                        zoomGroup.getChildren().remove((Node) e.getSource());
+                        eve.consume();
+                    });
+                    menuContext.show(circlePainting, ev.getSceneX(), ev.getSceneY());
+                    e.consume();
+                });
+                
                 texto.setText("");
                 zoomGroup.getChildren().remove(texto);
-                //deleteObject.remove(texto);
                 e.consume();
                 
                 buttonText.setSelected(false);
             });
+            
         }
         
         /*-----------PUNTO-----------*/
         if (buttonPoint.isSelected() && event.isPrimaryButtonDown()) {
             c = new Circle(10);
-            c.setStroke(Color.BLUE);
-            c.setFill(Color.LIGHTBLUE);
+            c.setStroke(colorPicker.getValue().darker());
+            c.setFill(colorPicker.getValue());
+            
+            if (stroke25.isSelected()) {
+                c.setRadius(6);
+            } else if (stroke75.isSelected()) {
+                c.setRadius(15);
+            } else if (stroke100.isSelected()) {
+                c.setRadius(20);
+            } else {
+                c.setRadius(10);
+            }
             
             zoomGroup.getChildren().add(c);
-            //deleteObject.add(c);
             
             c.setCenterX(event.getX());
             c.setCenterY(event.getY());
+            
+            
+            c.setOnContextMenuRequested(e -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem strokeItem = new MenuItem("Tamaño");
+                MenuItem colorItem = new MenuItem("Color");
+                MenuItem borrarItem = new MenuItem("Eliminar");
+                menuContext.getItems().add(strokeItem);
+                menuContext.getItems().add(colorItem);
+                menuContext.getItems().add(borrarItem);
+                strokeItem.setOnAction(ev -> {
+                    if (stroke25.isSelected()) {
+                        c.setStrokeWidth(3);
+                    } else if (stroke75.isSelected()) {
+                        c.setStrokeWidth(9);
+                    } else if (stroke100.isSelected()) {
+                        c.setStrokeWidth(15);
+                    } else {
+                        c.setStrokeWidth(6);
+                    }
+                    ev.consume();
+                });
+                colorItem.setOnAction(ev -> {
+                    c.setStroke(colorPicker.getValue());
+                    ev.consume();
+                });
+                borrarItem.setOnAction(ev -> {
+                    zoomGroup.getChildren().remove((Node) e.getSource());
+                    ev.consume();
+                });
+                menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
+                e.consume();
+            });
+            
             
             buttonPoint.setSelected(false);
         }
@@ -572,7 +736,6 @@ public class FXMLDocumentController implements Initializable {
         if (buttonLine.isSelected() && event.isPrimaryButtonDown()) {
             linePainting.setEndX(event.getX());
             linePainting.setEndY(event.getY());
-            linePainting.setFill(colorPicker.getValue());
             event.consume();
         }
         
@@ -665,11 +828,6 @@ public class FXMLDocumentController implements Initializable {
         
     }
 
-    @FXML
-    private void colorChange(ActionEvent event) {
-//        zoomGroup.getChildren().getClass().setFill(colorPicker.getValue());
-//        zoomGroup.getChildren().sorted().setFill(colorPicker.getValue());
-    }
 
     
 }

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
@@ -23,6 +24,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
@@ -115,9 +117,41 @@
                         </ImageView>
                      </graphic>
                   </ToggleButton>
-                  <ColorPicker fx:id="colorPicker" onAction="#colorChange" prefHeight="35.0" prefWidth="40.0" />
+                  <ColorPicker fx:id="colorPicker" prefHeight="35.0" prefWidth="40.0">
+                     <value>
+                        <Color />
+                     </value>
+                  </ColorPicker>
               </items>
             </ToolBar>
+            <MenuButton fx:id="strokePicker" mnemonicParsing="false" text="Stroke">
+              <items>
+                <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <RadioButton fx:id="stroke25" mnemonicParsing="false" text="25%">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="strokeGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <RadioButton fx:id="stroke50" mnemonicParsing="false" selected="true" text="50%" toggleGroup="$strokeGroup" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <RadioButton fx:id="stroke75" mnemonicParsing="false" text="75%" toggleGroup="$strokeGroup" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <RadioButton fx:id="stroke100" mnemonicParsing="false" text="100%" toggleGroup="$strokeGroup" />
+                     </graphic>
+                  </MenuItem>
+              </items>
+            </MenuButton>
             <Button mnemonicParsing="false" onAction="#borrarMapa">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
