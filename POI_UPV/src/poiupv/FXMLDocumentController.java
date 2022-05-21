@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -61,10 +63,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import model.Answer;
 import model.Navegacion;
 import model.Problem;
 import poiupv.Poi;
@@ -141,6 +145,23 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ToggleGroup toggleGroup;
     private ObservableList<Object> deleteObject;
+    private ObservableList<String> listaObservableProblemsString;
+    Random rnd;
+    @FXML
+    private Label pruebaAns;
+    @FXML
+    private Button buttonEnviar;
+    @FXML
+    private RadioButton radio1;
+    @FXML
+    private ListView<String> listviewProblemas;
+    List<String> probs;
+    List<Answer> ans;
+    List<Problem> l;
+    @FXML
+    private ToggleButton btrans;
+    
+    
     
     @FXML
     void zoomIn(ActionEvent event) {
@@ -227,8 +248,8 @@ public class FXMLDocumentController implements Initializable {
         
         
         try {
-            List<Problem> l = Navegacion.getSingletonNavegacion().getProblems();
-            System.out.println(l);
+            l = Navegacion.getSingletonNavegacion().getProblems();
+//            System.out.println(l);
             listaObservable = FXCollections.observableList(l);
 
         } catch (NavegacionDAOException ex) {
@@ -236,10 +257,9 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("error");
         }
         
-       
+        rnd = new Random();
         //lvProblemas.setItems(listaObservable);
      
-        
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
     }
 
@@ -388,48 +408,6 @@ public class FXMLDocumentController implements Initializable {
         newStage.showAndWait();
         
     }
-
-    @FXML
-    private void problemas(ActionEvent event) {
-//        lvProblemas.getItems().addAll(listaObservable);
-        System.out.println(listaObservable);
-    }
-
-
-//    @FXML
-//    private void colocarPunto1(ActionEvent event) {
-//        c = new Circle(0, 0, 15);
-//        imageviewCarta.setOnMousePressed(ev -> {
-//            
-//            x = ev.getSceneX()-ev.getX();
-//            y = ev.getSceneY()-ev.getY();
-//            labelSelected.setText("X: " + x + "\n" + "Y: " + y);
-//            
-//            paneCarta.getChildren().add(c);
-//            c.setLayoutX(x);
-//            c.setLayoutY(y);
-//            c.setVisible(true);
-//        });
-//        
-//        c.setOnMouseDragged(e ->{
-//            //double baseX = c.getTranslateX();
-//            //double baseY = c.getTranslateY();
-////            c.setTranslateX(despX + baseX);
-////            c.setTranslateY(despY + baseY);
-//            Point2D newLocation = new Point2D(e.getX(), e.getY());
-//            c.setLayoutX(newLocation.getX());
-//            c.setLayoutY(newLocation.getY());
-//
-//        });
-//        
-//        
-//
-//    }
-
-//    @FXML
-//    private void colocarPunto(MouseEvent event) {
-//        
-//    }
     
     @FXML
     private void zoomControl(ScrollEvent event) {
@@ -546,6 +524,21 @@ public class FXMLDocumentController implements Initializable {
             buttonPoint.setSelected(false);
         }
         
+        /*-----------TRANSPORTADOR-----------*/
+        if(btrans.isSelected() && event.isPrimaryButtonDown()){
+            transportador.setVisible(true);
+            transportador.setDisable(false);
+            transportador.setMouseTransparent(false);
+            X_inicial = event.getSceneX();
+            Y_inicial = event.getSceneY();
+            tbaseX = transportador.getTranslateX();
+            tbaseY = transportador.getTranslateY();
+            event.consume();
+        }
+        else if(!btrans.isSelected()){
+            transportador.setDisable(true);
+            transportador.setMouseTransparent(true);
+        }
     }
 
     @FXML
@@ -565,6 +558,15 @@ public class FXMLDocumentController implements Initializable {
             circlePainting.setRadius(radio);
             event.consume();
         }
+        
+        /*-----------TRANSPORTADOR-----------*/
+        if (btrans.isSelected() && event.isPrimaryButtonDown()){
+            double despX = event.getSceneX();
+            double despY = event.getSceneY();
+            transportador.setTranslateX(despX - X_inicial);
+            transportador.setTranslateY(despY - Y_inicial);
+            
+        }
     }
 
     @FXML
@@ -578,37 +580,63 @@ public class FXMLDocumentController implements Initializable {
         
     }
 
-    @FXML
-    private void moverTransportador(MouseEvent event) {
-        double despX = event.getSceneX() - X_inicial;
-        double despY = event.getSceneY() - Y_inicial;
-        transportador.setTranslateX(despX - tbaseX);
-        transportador.setTranslateY(despY - tbaseY);
-        event.consume();
-
-
-
-
-    }
-
-    @FXML
-    private void pressedTransportador(MouseEvent event) {
-        X_inicial = event.getSceneX();
-        Y_inicial = event.getSceneY();
-        tbaseX = transportador.getTranslateX();
-        tbaseY = transportador.getTranslateY();
-        event.consume();
-    }
+//    @FXML
+//    private void moverTransportador(MouseEvent event) {
+//        transportador.setDisable(false);
+//        transportador.setMouseTransparent(true);
+//        X_inicial = event.getSceneX();
+//        Y_inicial = event.getSceneY();
+//        tbaseX = transportador.getTranslateX();
+//        tbaseY = transportador.getTranslateY();
+////        double despX = event.getSceneX() - X_inicial;
+////        double despY = event.getSceneY() - Y_inicial;
+////        transportador.setTranslateX(despX - tbaseX);
+////        transportador.setTranslateY(despY - tbaseY);
+//        event.consume();
+//
+//
+//
+//
+//    }
+//
+//    @FXML
+//    private void pressedTransportador(MouseEvent event) {
+////        X_inicial = event.getSceneX();
+////        Y_inicial = event.getSceneY();
+////        tbaseX = transportador.getTranslateX();
+////        tbaseY = transportador.getTranslateY();
+////        event.consume();
+//    }
 
     @FXML
     private void SelectProblem(ActionEvent event) {
+        listaObservableProblemsString = FXCollections.observableList(probs);
+        for(int j=0; j< listaObservable.size(); j++){
+            
+            probs.add(listaObservable.get(j).getText());
+//            listaObservableProblemsString = FXCollections.observableList(probs);
+//            listviewProblemas.setItems(listaObservableProblemsString);
+            System.out.println(listaObservableProblemsString);
+        }
+        listviewProblemas.setItems(listaObservableProblemsString);
     }
 
     @FXML
     private void getRandomProblem(ActionEvent event) {
-        int i = (int) Math.random();
+        int i = rnd.nextInt(listaObservable.size()+1);
+        System.out.println(i);
+        enunciado.setText(listaObservable.get(i).getText());
+        //enunciado.setText(listaObservable.get(i).toString());
+        enunciado.setVisible(true);
+//        pruebaAns.setText(listaObservable.get(i).getAnswers());
+        List<Answer> a = listaObservable.get(i).getAnswers();
+        radio1.setText(a.get(0).getText());
         
-        enunciado.setText(listaObservable.get(i).toString());
+        
+    }
+
+    @FXML
+    private void enviarRespuesta(ActionEvent event) {
         
     }
 
