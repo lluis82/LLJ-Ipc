@@ -27,9 +27,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../CSS/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
-      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
+      <HBox id="hBoxBarra" alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
             <ImageView fx:id="imageviewBurger" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#editarPerfil" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -62,7 +62,7 @@
               </menus>
             </MenuBar>
             <Region HBox.hgrow="ALWAYS" />
-            <ToolBar prefHeight="46.0" prefWidth="347.0">
+            <ToolBar id="toolBar" prefHeight="46.0" prefWidth="327.0">
               <items>
                   <ToggleButton fx:id="buttonPoint" mnemonicParsing="false">
                      <graphic>
@@ -124,7 +124,7 @@
                   </ColorPicker>
               </items>
             </ToolBar>
-            <MenuButton fx:id="strokePicker" mnemonicParsing="false" text="Stroke">
+            <MenuButton id="stroke" fx:id="strokePicker" mnemonicParsing="false" text="Stroke">
               <items>
                 <MenuItem mnemonicParsing="false">
                      <graphic>
@@ -161,9 +161,9 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label text="Zoom" />
+            <Label id="zoomText" text="Zoom" />
             <Button mnemonicParsing="false" onAction="#zoomOut" text="-" />
-            <Slider fx:id="zoom_slider" blockIncrement="0.1" max="0.8" min="0.12" value="0.46" HBox.hgrow="SOMETIMES" />
+            <Slider id="slider" fx:id="zoom_slider" blockIncrement="0.1" max="0.8" min="0.12" value="0.46" HBox.hgrow="SOMETIMES" />
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" text="+" />
          </children>
          <VBox.margin>

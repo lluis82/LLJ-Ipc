@@ -26,4 +26,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .button{
     -fx-border-width: 0 0 0 0;
+    -fx-background-color: #00FFC5;
+    -fx-font-size: 15;
+}
+
+#buttonBack {
+    -fx-font-size: 20;
 }
