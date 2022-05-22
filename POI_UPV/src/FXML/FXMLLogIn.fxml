@@ -12,25 +12,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="562.0" prefWidth="419.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLoginController">
+<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="562.0" prefWidth="419.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLoginController">
    <center>
       <VBox prefHeight="381.0" prefWidth="297.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="BOTTOM_LEFT" prefHeight="63.0" prefWidth="270.0">
                <children>
-                  <VBox prefHeight="52.0" prefWidth="257.0">
+                  <VBox prefHeight="60.0" prefWidth="257.0">
                      <children>
                         <Label text="Username" textFill="#025477" />
                         <TextField fx:id="eemail" minHeight="26.0" minWidth="150.0" prefHeight="26.0" prefWidth="350.0" promptText="Username">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin></TextField>
+                        <Label fx:id="lIncorrectEmail" text="Incorrect Username." textFill="#ca0505" visible="false" />
                      </children>
                      <HBox.margin>
-                        <Insets top="10.0" />
+                        <Insets bottom="20.0" top="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <Label fx:id="lIncorrectEmail" text="Incorrect Username" textFill="#ca0505" visible="false" />
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -38,19 +38,23 @@
             </HBox>
             <HBox alignment="BOTTOM_LEFT" prefHeight="49.0" prefWidth="270.0">
                <children>
-                  <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="200.0">
+                  <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0">
                      <children>
                         <Label text="Password:" textFill="#025477" />
                         <PasswordField fx:id="epassword" minHeight="26.0" minWidth="100.0" prefHeight="26.0" prefWidth="150.0" promptText="LettersNumbersSymbols" />
+                        <Label fx:id="lIncorrectPass" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="323.0" text="Incorrect. It must be a combination of 8 to 20 numbers and letters, without blank spaces." textFill="#ca0505" visible="false" wrapText="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </Label>
                      </children>
                   </VBox>
-                  <Label fx:id="lIncorrectPass" text="Incorrect. It must be a combination of 8 to 15 numbers or letters, without blank spaces" textFill="#ca0505" visible="false" wrapText="true">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin></Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="25.0" top="25.0" />
+                  <Insets bottom="25.0" />
                </VBox.margin>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
