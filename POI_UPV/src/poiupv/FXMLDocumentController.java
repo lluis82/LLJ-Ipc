@@ -192,7 +192,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button buttonSelect;
     List<Answer> a;
-    
+    int aciertos;
+    int fallos;
     
     
     @FXML
@@ -811,16 +812,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void SelectProblem(ActionEvent event) {
-//        listaObservableProblemsString = FXCollections.observableList(probs);
         probs = new ArrayList<>();
         for(int j=0; j< listaObservable.size(); j++){
             String e = l.get(j).getText();
-            //System.out.println(e);
             probs.add(e);
-//            
-//            listaObservableProblemsString.add(listaObservable.get(j).getText());
-////            listviewProblemas.setItems(listaObservableProblemsString);
-//            System.out.println(listaObservableProblemsString);
         }
         System.out.println(probs);
         listaObservableProblemsString = FXCollections.observableList(probs);
@@ -844,15 +839,33 @@ public class FXMLDocumentController implements Initializable {
         
         radio4.setText(a.get(3).getText());
         
+        radios.getSelectedToggle().selectedProperty();
+        
     }
 
     @FXML
     private void enviarRespuesta(ActionEvent event) {
-        if(a.get(0).getValidity() && radio1.isSelected()){pruebaAns.setText("Correcto");}
-        if(a.get(1).getValidity() && radio2.isSelected()){pruebaAns.setText("Correcto");}
-        if(a.get(2).getValidity() && radio3.isSelected()){pruebaAns.setText("Correcto");}
-        if(a.get(3).getValidity() && radio4.isSelected()){pruebaAns.setText("Correcto");}
-        else pruebaAns.setText("Fallo");
+        if(a.get(0).getValidity() && radio1.isSelected()){
+            pruebaAns.setText("Correcto");
+            aciertos++;
+        }
+        if(a.get(1).getValidity() && radio2.isSelected()){
+            pruebaAns.setText("Correcto");
+            aciertos++;
+        }
+        if(a.get(2).getValidity() && radio3.isSelected()){
+            pruebaAns.setText("Correcto");
+            aciertos++;
+        }
+        if(a.get(3).getValidity() && radio4.isSelected()){
+            pruebaAns.setText("Correcto");
+            aciertos++;
+            
+        }
+        else {
+            pruebaAns.setText("Fallo");
+            fallos++;
+        }
     }
 
     @FXML
@@ -888,8 +901,9 @@ public class FXMLDocumentController implements Initializable {
             radio4.setText(a.get(3).getText());
             
         }
+//        radios.;
     }
-
-
+    
+    
     
 }

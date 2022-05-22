@@ -267,4 +267,10 @@ public class FXMLEditarPerfilController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    private void confirmChanges(ActionEvent event) {
+    }
+    
+//    public void 
 }

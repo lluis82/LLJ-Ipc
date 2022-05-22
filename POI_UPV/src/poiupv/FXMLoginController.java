@@ -123,6 +123,7 @@ public class FXMLoginController implements Initializable {
             System.out.println(transfer.getUser()+ " " );
             loadStage("/FXML/FXMLDocument.fxml", event);
         }
+        
     }
 
     @FXML
