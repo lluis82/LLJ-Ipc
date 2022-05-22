@@ -158,7 +158,7 @@ public class FXMLDocumentController implements Initializable {
     private RadioButton radio1;
     @FXML
     private ListView<String> listviewProblemas;
-    List<String> probs;
+    ArrayList<String> probs;
     List<Answer> ans;
     List<Problem> l;
     @FXML
@@ -179,6 +179,19 @@ public class FXMLDocumentController implements Initializable {
     private RadioButton stroke75;
     @FXML
     private RadioButton stroke100;
+    @FXML
+    private ToggleGroup radios;
+    @FXML
+    private RadioButton radio2;
+    @FXML
+    private RadioButton radio3;
+    @FXML
+    private RadioButton radio4;
+    @FXML
+    private Button buttonPreview;
+    @FXML
+    private Button buttonSelect;
+    List<Answer> a;
     
     
     
@@ -798,14 +811,19 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void SelectProblem(ActionEvent event) {
-        listaObservableProblemsString = FXCollections.observableList(probs);
+//        listaObservableProblemsString = FXCollections.observableList(probs);
+        probs = new ArrayList<>();
         for(int j=0; j< listaObservable.size(); j++){
-            
-            probs.add(listaObservable.get(j).getText());
-//            listaObservableProblemsString = FXCollections.observableList(probs);
-//            listviewProblemas.setItems(listaObservableProblemsString);
-            System.out.println(listaObservableProblemsString);
+            String e = l.get(j).getText();
+            //System.out.println(e);
+            probs.add(e);
+//            
+//            listaObservableProblemsString.add(listaObservable.get(j).getText());
+////            listviewProblemas.setItems(listaObservableProblemsString);
+//            System.out.println(listaObservableProblemsString);
         }
+        System.out.println(probs);
+        listaObservableProblemsString = FXCollections.observableList(probs);
         listviewProblemas.setItems(listaObservableProblemsString);
     }
 
@@ -817,15 +835,59 @@ public class FXMLDocumentController implements Initializable {
         //enunciado.setText(listaObservable.get(i).toString());
         enunciado.setVisible(true);
 //        pruebaAns.setText(listaObservable.get(i).getAnswers());
-        List<Answer> a = listaObservable.get(i).getAnswers();
+        a = listaObservable.get(i).getAnswers();
         radio1.setText(a.get(0).getText());
         
+        radio2.setText(a.get(1).getText());
+        
+        radio3.setText(a.get(2).getText());
+        
+        radio4.setText(a.get(3).getText());
         
     }
 
     @FXML
     private void enviarRespuesta(ActionEvent event) {
-        
+        if(a.get(0).getValidity() && radio1.isSelected()){pruebaAns.setText("Correcto");}
+        if(a.get(1).getValidity() && radio2.isSelected()){pruebaAns.setText("Correcto");}
+        if(a.get(2).getValidity() && radio3.isSelected()){pruebaAns.setText("Correcto");}
+        if(a.get(3).getValidity() && radio4.isSelected()){pruebaAns.setText("Correcto");}
+        else pruebaAns.setText("Fallo");
+    }
+
+    @FXML
+    private void previewProblempreviewProblem(ActionEvent event) {
+        Alert mensaje= new Alert(Alert.AlertType.INFORMATION);
+        mensaje.setTitle("MostrarProblema");
+        mensaje.setHeaderText("Preview");
+        int xd = listviewProblemas.getSelectionModel().getSelectedIndex();
+        mensaje.setContentText(listaObservable.get(xd).getText());
+        mensaje.showAndWait();
+    }
+
+    @FXML
+    private void selectProblem(ActionEvent event) {
+        Alert mensaje= new Alert(Alert.AlertType.CONFIRMATION);
+        mensaje.setTitle("Seleccionar Problema");
+        mensaje.setContentText("¿Quieres realizar este problema?");
+        Optional<ButtonType> result = mensaje.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            enunciado.setVisible(true);
+            
+            int xd = listviewProblemas.getSelectionModel().getSelectedIndex();
+            System.out.println(xd);
+//            enunciado.setText(listviewProblemas.getSelectionModel().getSelectedItems().toString());
+            a = listaObservable.get(xd).getAnswers();
+            enunciado.setText(listaObservable.get(xd).getText());
+            radio1.setText(a.get(0).getText());
+
+            radio2.setText(a.get(1).getText());
+
+            radio3.setText(a.get(2).getText());
+
+            radio4.setText(a.get(3).getText());
+            
+        }
     }
 
 

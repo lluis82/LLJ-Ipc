@@ -127,7 +127,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfNombre" maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" promptText="tfNombre" />
+                              <TextField fx:id="tfNombre" disable="true" maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" promptText="Username" />
                            </children>
                         </VBox>
                      </children>
@@ -144,7 +144,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="tfContra" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="tfContra" />
+                              <PasswordField fx:id="tfContra" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="LettersNumbersSymbols" />
                            </children>
                         </VBox>
                      </children>
@@ -161,7 +161,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="tfContra2" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="tfRContra" />
+                              <PasswordField fx:id="tfContra2" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="LettersNumbersSymbols" />
                            </children>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -178,7 +178,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfCorreo" maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" />
+                              <TextField fx:id="tfCorreo" maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" promptText="yourEmail@domain.com" />
                            </children>
                         </VBox>
                      </children>
@@ -195,7 +195,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="138.0" stylesheets="@../CSS/DatePicker.css" />
+                              <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="138.0" promptText="dd/mm/aaaa" stylesheets="@../CSS/DatePicker.css" />
                            </children>
                         </VBox>
                      </children>
@@ -207,7 +207,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="buttonConfirmar" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="Confirmar cambios" />
+                  <Button fx:id="buttonConfirmar" alignment="CENTER" mnemonicParsing="false" onAction="#confirmChanges" prefHeight="50.0" prefWidth="155.0" text="Confirmar cambios" />
                </children>
             </HBox>
          </children>
