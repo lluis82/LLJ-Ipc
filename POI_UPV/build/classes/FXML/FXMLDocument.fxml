@@ -28,7 +28,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../CSS/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox id="hboxtotal" prefHeight="786.0" prefWidth="1059.0" stylesheets="@../CSS/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox id="hBoxBarra" alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -63,7 +63,7 @@
               </menus>
             </MenuBar>
             <Region HBox.hgrow="ALWAYS" />
-            <ToolBar id="toolBar" prefHeight="46.0" prefWidth="327.0">
+            <ToolBar id="toolBar" prefHeight="46.0" prefWidth="332.0">
               <items>
                   <ToggleButton fx:id="buttonPoint" mnemonicParsing="false">
                      <graphic>
@@ -173,7 +173,7 @@
       </HBox>
       <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>
-            <AnchorPane maxWidth="575.0" prefHeight="508.0" prefWidth="183.0">
+            <AnchorPane id="anPane" maxWidth="575.0" prefHeight="508.0" prefWidth="183.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="575.0">
                      <children>
@@ -253,9 +253,9 @@
                      </children>
                   </HBox>
                </children></AnchorPane>
-            <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS">
+            <ScrollPane id="scPane" fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="398.0" prefWidth="358.0" vbarPolicy="ALWAYS">
                <content>
-                  <Pane fx:id="paneCarta" onMouseDragged="#mouseDraggedAction" onMouseMoved="#mouseMovedAction" onMousePressed="#mousePressedAction" onMouseReleased="#mouseReleasedAction">
+                  <Pane id="pane" fx:id="paneCarta" onMouseDragged="#mouseDraggedAction" onMouseMoved="#mouseMovedAction" onMousePressed="#mousePressedAction" onMouseReleased="#mouseReleasedAction">
                      <children>
                         <ImageView fx:id="imageviewCarta" layoutX="-122.0" layoutY="-213.0" onScroll="#zoomControl" pickOnBounds="true">
                            <image>
@@ -273,15 +273,14 @@
             </ScrollPane>
          </items>
       </SplitPane>
-      <HBox alignment="CENTER_RIGHT">
+      <HBox id="hboxbot" alignment="CENTER_RIGHT">
          <children>
-            <Label text="Selected: " />
             <Label fx:id="labelSelected">
                <padding>
                   <Insets right="10.0" />
                </padding>
             </Label>
-            <Label fx:id="posicion" minHeight="-Infinity" minWidth="-Infinity" text="SceneX:     ScenY:     " wrapText="true" HBox.hgrow="ALWAYS" />
+            <Label fx:id="posicion" minHeight="-Infinity" minWidth="-Infinity" text="SceneX:     ScenY:     " textFill="#00ffc5" wrapText="true" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets bottom="12.0" right="12.0" top="6.0" />

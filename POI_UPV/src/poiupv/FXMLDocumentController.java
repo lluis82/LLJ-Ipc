@@ -1076,19 +1076,20 @@ public class FXMLDocumentController implements Initializable {
 //        alert.setHeaderText("Sesiones previas");
 //        alert.setContentText(usuarioLogeado.getSessions().toString());
 //        alert.showAndWait();
-        int a=0;
-        int f=0;
-       List<Session> l = usuarioLogeado.getSessions();
-       LocalDate ld = datePickerStats.getValue();
-       for(int v=0;v<l.size();v++){
-           if(l.get(v).getLocalDate().isBefore(ld)){
-             a += l.get(v).getHits();
-             f += l.get(v).getFaults();
-           }
-       }
-       labelAciertos.setText("Aciertos: "+ a);
-       labelFallos.setText("Fallos: "+ f);
-       
+        int a = 0;
+        int f = 0;
+        System.out.println(usuarioLogeado);
+        List<Session> l = usuarioLogeado.getSessions();
+        LocalDate ld = datePickerStats.getValue();
+        for (int v = 0; v < l.size(); v++) {
+            if (l.get(v).getLocalDate().isBefore(ld)) {
+                a += l.get(v).getHits();
+                f += l.get(v).getFaults();
+            }
+        }
+        labelAciertos.setText("Aciertos: " + a);
+        labelFallos.setText("Fallos: " + f);
+
     }
     
     

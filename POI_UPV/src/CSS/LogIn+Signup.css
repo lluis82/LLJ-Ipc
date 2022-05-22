@@ -6,8 +6,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on : May 10, 2022, 1:30:24 PM
     Author     : lluis
 */
-.root{}
+#bp{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #13123a, #ffffff);
+}
 
-.SignUpPrueba{
-    -fx-background-color: linear-gradient(to bottom left, cyan 50%, palegoldenrod 50%);
+#top{
+    -fx-background-color: #13123a;
+}
+
+.button{
+    -fx-border-width: 0 0 0 0;
+    -fx-background-color: #00FFC5;
+    -fx-font-size: 15;
+}
+
+.label{
+    -fx-text-fill: #00FFC5;
 }

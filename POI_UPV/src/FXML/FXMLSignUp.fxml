@@ -12,68 +12,37 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="536.0" prefWidth="892.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
-   <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #0685BC;" BorderPane.alignment="CENTER">
-         <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="60.0" />
-               </font>
-            </Text>
-         </children>
-         <BorderPane.margin>
-            <Insets top="10.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-         </padding>
-      </HBox>
-   </top>
-   <bottom>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="560.0" spacing="25.0" BorderPane.alignment="CENTER_RIGHT">
-         <children>
-            <Button fx:id="bAccept" alignment="CENTER" minWidth="80.0" mnemonicParsing="false" onAction="#handleAcceptAction" prefWidth="100.0" style="-fx-background-color: #0685BC;" text="Accept" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/accept_white.png" />
-                     </image></ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="bCancel" alignment="CENTER" minWidth="80.0" mnemonicParsing="false" onAction="#handleCancelAction" prefWidth="100.0" style="-fx-background-color: #0685BC;" text="Cancel" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/cancel_white.png" />
-                     </image></ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </BorderPane.margin>
-      </HBox>
-   </bottom>
+<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="722.0" prefWidth="499.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
    <center>
-      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="201.0" prefWidth="570.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="610.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
          </BorderPane.margin>
          <children>
-            <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="700.0">
+            <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="435.0">
                <children>
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Label text="Choose an avatar:" />
+                        <ImageView fx:id="imageAvatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../resources/avatars/default.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="changeAvatar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeAvatarButton" text="Change avatar">
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
                   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="100.0">
                      <children>
                         <Label text="Username:" textFill="#025477" />
@@ -84,7 +53,7 @@
                   <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="350.0">
                      <children>
                         <Label text="Email:" textFill="#025477" />
-                        <TextField fx:id="eemail" minHeight="26.0" minWidth="150.0" prefHeight="26.0" prefWidth="350.0" promptText="yourEmail@domain.com" />
+                        <TextField fx:id="eemail" minHeight="26.0" minWidth="150.0" prefHeight="26.0" prefWidth="653.0" promptText="yourEmail@domain.com" />
                         <Label fx:id="lIncorrectEmail" text="Incorrect format email. It has to be like &quot;yourEmail@domain.com&quot;." textFill="#ca0505" visible="false" />
                      </children>
                   </VBox>
@@ -109,27 +78,47 @@
                         <Label fx:id="lIncorrectDate" text="You have to be older than 16 years." textFill="#ca0505" visible="false" />
                      </children>
                   </VBox>
-               </children>
-            </VBox>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="150.0" spacing="5.0">
-               <children>
-                  <Label text="Choose an avatar:" />
-                  <ImageView fx:id="imageAvatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="48.0" prefWidth="435.0" spacing="15.0">
+                           <children>
+                              <Button fx:id="bAccept" alignment="CENTER" minWidth="80.0" mnemonicParsing="false" onAction="#handleAcceptAction" prefWidth="100.0" text="Accept">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/accept.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="bCancel" alignment="CENTER" minWidth="80.0" mnemonicParsing="false" onAction="#handleCancelAction" prefWidth="100.0" text="Cancel">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/cancel.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
                      <VBox.margin>
-                        <Insets left="15.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
-                     <image>
-                        <Image url="@../resources/avatars/default.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="changeAvatar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeAvatarButton" text="Change avatar">
-                     <VBox.margin>
-                        <Insets left="30.0" />
-                     </VBox.margin>
-                  </Button>
+                  </VBox>
                </children>
             </VBox>
          </children>
       </HBox>
    </center>
+   <top>
+      <HBox id="top" prefHeight="116.0" prefWidth="938.0" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>

@@ -203,6 +203,34 @@ S17.642,20.762,13.558,20.762z";
     -fx-background-color: #13123a;
 }
 
-.colorPicker {
-    -fx-border-color: #00FFC5;
+.color-picker {
+    -fx-background-color: #00FFC5;
 }
+
+#anPane{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #ffffff, #13123a);
+    -fx-text-fill: #ffffff;
+    
+}
+
+#hboxtotal{
+    -fx-background-color: #13123a;
+}
+
+#hboxbot{
+    -fx-background-color: #13123a;
+    -fx-text-fill: #ffffff;
+}
+
+.radio_button{
+    -fx-text-fill: #00FFC5;
+}
+
+#scPane{
+    -fx-background-color: #13123a;
+}
+
+#pane{
+    -fx-background-color: #13123a;
+}
+
