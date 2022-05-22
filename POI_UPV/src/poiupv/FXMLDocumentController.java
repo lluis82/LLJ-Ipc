@@ -309,7 +309,7 @@ public class FXMLDocumentController implements Initializable {
         //lvProblemas.setItems(listaObservable);
         usuarioLogeado = FXMLoginController.usuarioLogeado;
         
-        //Stage.setOnCloseRequest(this::cerrarAplicacion);
+//        Stage.setOnCloseRequest(this::cerrarAplicacion);
         
 //        linePainting.setOnMouseEntered(event -> {
 //            linePainting.setFill(colorPicker.getValue());
@@ -755,8 +755,10 @@ public class FXMLDocumentController implements Initializable {
             transportador.setMouseTransparent(false);
             X_inicial = event.getX();
             Y_inicial = event.getY();
-            tbaseX = transportador.getTranslateX() - X_inicial;
-            tbaseY = transportador.getTranslateY() - Y_inicial;
+            tbaseX = transportador.getTranslateX();
+            tbaseY = transportador.getTranslateY();
+            
+            event.consume();
             
             //zoomGroup.getChildren().add(transportador);
             
