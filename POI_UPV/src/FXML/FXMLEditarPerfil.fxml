@@ -12,9 +12,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="819.0" stylesheets="@../CSS/Editar%20Perfil.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLEditarPerfilController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.0" prefWidth="739.0" stylesheets="@../CSS/Editar%20Perfil.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLEditarPerfilController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" styleClass="primary-color" stylesheets="@../CSS/Editar%20Perfil.css" BorderPane.alignment="CENTER">
          <children>
@@ -139,7 +138,7 @@
                         </VBox>
                      </children>
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="40.0" left="10.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="29.0" prefWidth="780.0">
@@ -152,7 +151,7 @@
                                  </font>
                               </Label>
                               <PasswordField fx:id="tfContra" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="LettersNumbersSymbols" />
-                              <Text fx:id="tContraError" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                              <Label fx:id="tContraError" minHeight="-Infinity" prefHeight="40.0" prefWidth="409.0" text="It is necessary 8-20 numbers or letters, with one uppercase, lowercase, number and especial character, without blanks." textFill="RED" visible="false" wrapText="true" />
                            </children>
                         </VBox>
                      </children>
@@ -170,7 +169,7 @@
                                  </font>
                               </Label>
                               <PasswordField fx:id="tfContra2" maxWidth="300.0" prefHeight="26.0" prefWidth="300.0" promptText="LettersNumbersSymbols" />
-                              <Text fx:id="tConError2" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                              <Label fx:id="tConError2" minHeight="-Infinity" prefHeight="40.0" text="Passwords don't match." textFill="RED" visible="false" />
                            </children>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -188,7 +187,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="tfCorreo" maxWidth="300.0" prefHeight="26.0" prefWidth="493.0" promptText="yourEmail@domain.com" />
-                              <Text fx:id="tEmailErr" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                              <Label fx:id="tEmailErr" minHeight="-Infinity" prefHeight="40.0" text="Incorrect format email. It has to be like &quot;yourEmail@domain.com&quot;." textFill="RED" visible="false" />
                            </children>
                         </VBox>
                      </children>
@@ -206,7 +205,7 @@
                                  </font>
                               </Label>
                               <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="138.0" promptText="dd/mm/aaaa" stylesheets="@../CSS/DatePicker.css" />
-                              <Text fx:id="tDPErr" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
+                              <Label fx:id="tDPErr" text="You have to be older than 16 years." textFill="RED" visible="false" />
                            </children>
                         </VBox>
                      </children>
@@ -218,7 +217,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="buttonConfirmar" alignment="CENTER" mnemonicParsing="false" onAction="#confirmChanges" prefHeight="50.0" prefWidth="155.0" text="Confirmar cambios" />
+                  <Button fx:id="buttonConfirmar" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#confirmChanges" prefHeight="50.0" prefWidth="155.0" text="Confirmar cambios" />
                </children>
             </HBox>
          </children>

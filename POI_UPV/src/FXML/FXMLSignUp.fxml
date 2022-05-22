@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="722.0" prefWidth="499.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
+<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="826.0" prefWidth="503.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
    <center>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="610.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -43,35 +43,35 @@
                         <Insets />
                      </VBox.margin>
                   </VBox>
-                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="100.0">
+                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="85.0" prefWidth="100.0">
                      <children>
                         <Label text="Username:" textFill="#025477" />
                         <TextField fx:id="eusername" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="Username" />
-                        <Label fx:id="lIncorrectUsername" text="Incorrect username. It has to be between 6 and 15 characters including &quot;-&quot; and &quot;_&quot; without blanks." textFill="#ca0505" visible="false" />
+                        <Label fx:id="lIncorrectUsername" text="Incorrect username. It has to be between 6 and 15 characters including &quot;-&quot; and &quot;_&quot; without blanks." textFill="#ca0505" visible="false" wrapText="true" />
                      </children>
                   </VBox>
-                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="350.0">
+                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="85.0" prefWidth="350.0">
                      <children>
                         <Label text="Email:" textFill="#025477" />
                         <TextField fx:id="eemail" minHeight="26.0" minWidth="150.0" prefHeight="26.0" prefWidth="653.0" promptText="yourEmail@domain.com" />
                         <Label fx:id="lIncorrectEmail" text="Incorrect format email. It has to be like &quot;yourEmail@domain.com&quot;." textFill="#ca0505" visible="false" />
                      </children>
                   </VBox>
-                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="200.0">
+                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="85.0" prefWidth="435.0">
                      <children>
                         <Label text="Password:" textFill="#025477" />
                         <PasswordField fx:id="epassword" minHeight="26.0" minWidth="100.0" prefHeight="26.0" prefWidth="150.0" promptText="LettersNumbersSymbols" />
-                        <Label fx:id="lIncorrectPass" text="Error: It must be a combination of 8 to 20 numbers or letters, with at least one uppercase, one lowercase letter, one number and one especial character, without blank spaces." textFill="#ca0505" visible="false" wrapText="true" />
+                        <Label fx:id="lIncorrectPass" minHeight="-Infinity" prefHeight="40.0" text="It is necessary 8-20 numbers or letters, with one uppercase, lowercase, number and especial character, without blanks." textFill="#ca0505" visible="false" wrapText="true" />
                      </children>
                   </VBox>
-                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="200.0">
+                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="85.0" prefWidth="200.0">
                      <children>
                         <Label text="Repeat Password:" textFill="#025477" />
                         <PasswordField fx:id="epassword2" minHeight="26.0" minWidth="100.0" prefHeight="26.0" prefWidth="150.0" promptText="LettersNumbersSymbols" />
                         <Label fx:id="lPassDifferent" text="Passwords don't match." textFill="#ca0505" visible="false" />
                      </children>
                   </VBox>
-                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="100.0">
+                  <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="85.0" prefWidth="100.0">
                      <children>
                         <Label text="Date of birth:" textFill="#025477" />
                         <DatePicker fx:id="datePicker" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="118.0" promptText="dd/mm/aaaa" stylesheets="@../CSS/DatePicker.css" />

@@ -491,5 +491,6 @@ public class FXMLEditarPerfilController implements Initializable {
         validDate.setValue(Boolean.FALSE);
         
     }
+
     
 }
