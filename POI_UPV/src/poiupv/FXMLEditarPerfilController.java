@@ -17,6 +17,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -37,6 +41,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -44,6 +49,9 @@ import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
 import model.Navegacion;
 import model.User;
+import static model.User.checkEmail;
+import static model.User.checkNickName;
+import static model.User.checkPassword;
 
 
 /**
@@ -55,6 +63,16 @@ import model.User;
  */
 public class FXMLEditarPerfilController implements Initializable {
 
+    
+    //properties to control valid fieds values. 
+    private BooleanProperty validPassword;
+    private BooleanProperty validEmail;
+    private BooleanProperty equalPasswords;
+    private BooleanProperty validDate;
+    
+    private final int EQUALS = 0;
+    
+    
     @FXML
     private ImageView imageviewAvatar;
     @FXML
@@ -80,15 +98,143 @@ public class FXMLEditarPerfilController implements Initializable {
     private Button buttonConfirmar;
    
     User usuarioLogeado;
+    
     @FXML
     private Label labperfil;
+    @FXML
+    private Label tContraError;
+    @FXML
+    private Label tConError2;
+    @FXML
+    private Label tEmailErr;
+    @FXML
+    private Label tDPErr;
    
 
+    
+    /**
+     * Updates the boolProp to false.Changes to red the background of the edit. 
+     * Makes the error label visible and sends the focus to the edit. 
+     * @param errorLabel label added to alert the user
+     * @param textField edit text added to allow user to introduce the value
+     * @param boolProp property which stores if the value is correct or not
+     */
+    private void manageError(Label errorLabel,TextField textField, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.FALSE);
+        showErrorMessage(errorLabel,textField);
+        textField.requestFocus();
+ 
+    }
+    /**
+     * Updates the boolProp to true. Changes the background 
+     * of the edit to the default value. Makes the error label invisible. 
+     * @param errorLabel label added to alert the user
+     * @param textField edit text added to allow user to introduce the value
+     * @param boolProp property which stores if the value is correct or not
+     */
+    private void manageCorrect(Label errorLabel,TextField textField, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.TRUE);
+        hideErrorMessage(errorLabel,textField);
+        
+    }
+    
+    /**
+     * Updates the boolProp to false.Changes to red the background of the edit. 
+     * Makes the error label visible and sends the focus to the edit. 
+     * @param errorLabel label added to alert the user
+     * @param textField edit text added to allow user to introduce the value
+     * @param boolProp property which stores if the value is correct or not
+     */
+    private void manageErrorDatePicker(Label errorLabel, DatePicker datepicker, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.FALSE);
+        showErrorMessageDatePicker(errorLabel,datepicker);
+        datepicker.requestFocus();
+ 
+    }
+    /**
+     * Updates the boolProp to true. Changes the background 
+     * of the edit to the default value. Makes the error label invisible. 
+     * @param errorLabel label added to alert the user
+     * @param textField edit text added to allow user to introduce the value
+     * @param boolProp property which stores if the value is correct or not
+     */
+    private void manageCorrectDatePicker(Label errorLabel, DatePicker datepicker, BooleanProperty boolProp ){
+        boolProp.setValue(Boolean.TRUE);
+        hideErrorMessageDatePicker(errorLabel,datepicker);
+        
+    }
+    
+    /**
+     * Changes to red the background of the edit and
+     * makes the error label visible
+     * @param errorLabel
+     * @param textField 
+     **/
+    private void showErrorMessage(Label errorLabel,TextField textField)
+    {
+        errorLabel.visibleProperty().set(true);
+        textField.styleProperty().setValue("-fx-background-color: #FCE5E0");    
+    }
+    /**
+     * Changes the background of the edit to the default value
+     * and makes the error label invisible.
+     * @param errorLabel
+     * @param textField 
+     */
+    private void hideErrorMessage(Label errorLabel,TextField textField)
+    {
+        errorLabel.visibleProperty().set(false);
+        textField.styleProperty().setValue("");
+    }
+
+    
+    
+    /**
+     * Changes to red the background of the edit and
+     * makes the error label visible
+     * @param errorLabel
+     * @param textField 
+     **/
+    private void showErrorMessageDatePicker(Label errorLabel, DatePicker datepicker)
+    {
+        errorLabel.visibleProperty().set(true);
+        datepicker.styleProperty().setValue("-fx-background-color: #FCE5E0");    
+    }
+    /**
+     * Changes the background of the edit to the default value
+     * and makes the error label invisible.
+     * @param errorLabel
+     * @param datePicker 
+     */
+    private void hideErrorMessageDatePicker(Label errorLabel, DatePicker datepicker)
+    {
+        errorLabel.visibleProperty().set(false);
+        datepicker.styleProperty().setValue("");
+    }
+    
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
+        validEmail = new SimpleBooleanProperty();
+        validPassword = new SimpleBooleanProperty();   
+        equalPasswords = new SimpleBooleanProperty();
+        validDate = new SimpleBooleanProperty();
+        
+        validPassword.setValue(Boolean.FALSE);
+        validEmail.setValue(Boolean.FALSE);
+        equalPasswords.setValue(Boolean.FALSE);
+        validDate.setValue(Boolean.FALSE);
+        
+        BooleanBinding validFields = Bindings.and(validEmail, validPassword)
+         .and(equalPasswords);
+        
+        
         try {
             t = Navegacion.getSingletonNavegacion();
         } catch (NavegacionDAOException ex) {
@@ -122,6 +268,17 @@ public class FXMLEditarPerfilController implements Initializable {
 //        String user = t.toString();
         //System.out.println(usuario);
         //System.out.println(pr.toString());
+        
+        
+        
+        tfNombre.setText(usuarioLogeado.getNickName());
+        tfContra.setText(usuarioLogeado.getPassword());
+        tfContra2.setText(usuarioLogeado.getPassword());
+        tfCorreo.setText(usuarioLogeado.getEmail());
+        imageviewAvatar.setImage(usuarioLogeado.getAvatar());
+        datepicker.setValue(usuarioLogeado.getBirthdate());
+        
+        
     }    
 
     @FXML
@@ -241,14 +398,98 @@ public class FXMLEditarPerfilController implements Initializable {
             alert.showAndWait();
         }
     }
-
-    @FXML
-    private void confirmChanges(ActionEvent event) {
-    }
     
 
     @FXML
     private void atras(MouseEvent event) throws IOException {
         loadStage("/FXML/FXMLDocument.fxml", event);
     }
+    
+    
+    
+        private boolean checkEditEmail() {
+        boolean correct = true;
+        if (!checkEmail(tfCorreo.textProperty().getValueSafe())) {
+            manageError(tEmailErr, tfCorreo, validEmail);
+            correct = false;
+        }
+        else { manageCorrect(tEmailErr, tfCorreo, validEmail); }
+        return correct;
+    }
+    
+    private boolean checkEditPass() {
+        boolean correct = true;
+        if (!checkPassword(tfContra.textProperty().getValueSafe())) {
+            manageError(tContraError, tfContra, validPassword);
+            correct = false;
+        }
+        else { manageCorrect(tContraError, tfContra, validPassword); }
+        return correct;
+    }
+    
+    private boolean checkEquals() {
+        boolean correct = true;
+        if (tfContra.textProperty().getValueSafe().compareTo(tfContra2.textProperty().getValueSafe()) != EQUALS) {
+            
+            showErrorMessage(tConError2,tfContra2);
+            equalPasswords.setValue(Boolean.FALSE);
+            tfContra.textProperty().setValue("");
+            tConError2.textProperty().setValue("");
+            tfContra.requestFocus();
+            correct = false;
+        }
+        else { manageCorrect(tConError2, tfContra2, equalPasswords); }
+        return correct;
+    }
+    
+    private boolean checkEditDate() {
+        boolean correct = true;
+            LocalDate date = LocalDate.now().minusYears(16);
+            LocalDate date2 = datepicker.getValue();
+            if (date2 == null || !date.isAfter(date2)) {
+                manageErrorDatePicker(tDPErr, datepicker, validDate);
+                datepicker.getEditor().clear();
+                datepicker.setValue(null);
+                datepicker.requestFocus();
+                correct = false;
+            } else { manageCorrectDatePicker(tDPErr, datepicker, validDate); }
+        return correct;
+    }
+
+    @FXML
+    private void confirmChanges(MouseEvent event) throws IOException, NavegacionDAOException {
+        
+        Image avatar = imageviewAvatar.getImage();
+        Image defAvat = new Image("/resources/avatars/default.png");
+        
+        if (checkEditEmail() & (checkEditPass() && checkEquals()) & checkEditDate()) {
+            // Si la foto del avatar NO ha cambiado, usamos registerUser sin el Image avatar, sino, si
+            if (avatar == defAvat) {
+                
+                usuarioLogeado.setEmail(tfCorreo.textProperty().getValueSafe());
+                usuarioLogeado.setPassword(tfContra.textProperty().getValueSafe());
+                usuarioLogeado.setBirthdate(datepicker.getValue());
+                
+            } else {
+                
+                usuarioLogeado.setEmail(tfCorreo.textProperty().getValueSafe());
+                usuarioLogeado.setAvatar(avatar);
+                usuarioLogeado.setPassword(tfContra.textProperty().getValueSafe());
+                usuarioLogeado.setBirthdate(datepicker.getValue());
+            }
+            
+            loadStage("/FXML/FXMLLogIn.fxml", event);
+        }
+        
+//        tfCorreo.textProperty().setValue("");
+//        tfContra.textProperty().setValue("");
+//        tfContra2.textProperty().setValue("");
+        
+        validPassword.setValue(Boolean.FALSE);
+        validEmail.setValue(Boolean.FALSE);
+        equalPasswords.setValue(Boolean.FALSE);
+        validDate.setValue(Boolean.FALSE);
+        
+    }
+    
 }
