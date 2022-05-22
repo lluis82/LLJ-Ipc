@@ -32,7 +32,7 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import model.Navegacion;
 import static model.Navegacion.getSingletonNavegacion;
-import poiupv.Transfer.*;
+import model.User;
 
 
 /**
@@ -58,7 +58,7 @@ public class FXMLoginController implements Initializable {
     @FXML
     private Button buttonCreateAccount;
     Navegacion t;
-    Transfer transfer;
+    
     
     /**
      * Updates the boolProp to false.Changes to red the background of the edit. 
@@ -108,7 +108,7 @@ public class FXMLoginController implements Initializable {
     }    
 
     @FXML
-    private void handleBAcceptonAction(ActionEvent event) throws IOException {
+    private void handleBAcceptonAction(ActionEvent event) throws IOException, InterruptedException {
         String nick = eemail.getText();
         if (t.loginUser(nick, epassword.getText())==null){
             lIncorrectPass.setVisible(true); 
@@ -117,12 +117,25 @@ public class FXMLoginController implements Initializable {
             epassword.setText("");
         }
         else {
-            transfer = new Transfer();
-            transfer.setUser(nick);
-
-            System.out.println(transfer.getUser()+ " " );
+            
+            User ususuusus = t.getUser(nick);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/FXMLEditarPerfil.fxml"));
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/FXML/FXMLDocument.fxml"));
+            loader.load();
+            loader2.load();
+            FXMLEditarPerfilController cont = loader.getController();
+            FXMLDocumentController cont2 = loader2.getController();
+            cont.setUsuario(ususuusus);
+            cont2.setUsuario(ususuusus);
+            
+            cont.setTfs();
+         
             loadStage("/FXML/FXMLDocument.fxml", event);
+            //System.out.println(ususuusus);
+            
         }
+        
+        
         
     }
 
@@ -148,10 +161,15 @@ public class FXMLoginController implements Initializable {
         Stage newStage = new Stage();
         newStage.setScene(scene);
         
+        
+        
         switch(fxmlDocumentfxml) {
             case "/FXML/FXMLDocument.fxml":
                 newStage.getIcons().add(new Image("/resources/icons/app.png"));
                 newStage.setTitle("APP");
+                
+                
+                
                 break;
                 
             case "/FXML/FXMLSignUp.fxml":

@@ -72,6 +72,7 @@ import javafx.util.Duration;
 import model.Answer;
 import model.Navegacion;
 import model.Problem;
+import model.User;
 import poiupv.Poi;
 
 
@@ -194,6 +195,9 @@ public class FXMLDocumentController implements Initializable {
     List<Answer> a;
     int aciertos;
     int fallos;
+    User usuario;
+    @FXML
+    private Button buttonSession;
     
     
     @FXML
@@ -278,7 +282,8 @@ public class FXMLDocumentController implements Initializable {
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
         
-        
+        fallos = 0;
+        aciertos =0;
         
         try {
             l = Navegacion.getSingletonNavegacion().getProblems();
@@ -439,6 +444,7 @@ public class FXMLDocumentController implements Initializable {
         Scene oldScene = sourceAsNode.getScene();
         Window window = oldScene.getWindow();
         Stage stage = (Stage) window;
+        stage.close();
         
 
         Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLEditarPerfil.fxml"));
@@ -449,6 +455,7 @@ public class FXMLDocumentController implements Initializable {
         newStage.getIcons().add(new Image("/resources/icons/signup.png"));
         newStage.setTitle("Edit Profile");
         newStage.showAndWait();
+        
         
     }
     
@@ -820,10 +827,14 @@ public class FXMLDocumentController implements Initializable {
         System.out.println(probs);
         listaObservableProblemsString = FXCollections.observableList(probs);
         listviewProblemas.setItems(listaObservableProblemsString);
+        buttonPreview.setDisable(false);
+        buttonSelect.setDisable(false);
+        
     }
 
     @FXML
     private void getRandomProblem(ActionEvent event) {
+        
         int i = rnd.nextInt(listaObservable.size()+1);
         System.out.println(i);
         enunciado.setText(listaObservable.get(i).getText());
@@ -839,33 +850,39 @@ public class FXMLDocumentController implements Initializable {
         
         radio4.setText(a.get(3).getText());
         
-        radios.getSelectedToggle().selectedProperty();
+        radios.getSelectedToggle().setSelected(false);
+        buttonEnviar.setDisable(false);
         
     }
 
     @FXML
     private void enviarRespuesta(ActionEvent event) {
         if(a.get(0).getValidity() && radio1.isSelected()){
-            pruebaAns.setText("Correcto");
             aciertos++;
+            pruebaAns.setText("Correcto. Aciertos: " + aciertos + " Fallos: " + fallos);
+            fallos--;
         }
         if(a.get(1).getValidity() && radio2.isSelected()){
-            pruebaAns.setText("Correcto");
             aciertos++;
+            pruebaAns.setText("Correcto. Aciertos: " + aciertos + " Fallos: " + fallos);
+            fallos--;
         }
         if(a.get(2).getValidity() && radio3.isSelected()){
-            pruebaAns.setText("Correcto");
             aciertos++;
+            pruebaAns.setText("Correcto. Aciertos: " + aciertos + " Fallos: " + fallos);
+            fallos--;
         }
         if(a.get(3).getValidity() && radio4.isSelected()){
-            pruebaAns.setText("Correcto");
             aciertos++;
+            pruebaAns.setText("Correcto. Aciertos: " + aciertos + " Fallos: " + fallos);
+            fallos--;
+            }
+        else {
+            fallos++;
+            pruebaAns.setText("Correcto. Aciertos: " + aciertos + " Fallos: " + fallos);
             
         }
-        else {
-            pruebaAns.setText("Fallo");
-            fallos++;
-        }
+        buttonEnviar.setDisable(true);
     }
 
     @FXML
@@ -901,9 +918,24 @@ public class FXMLDocumentController implements Initializable {
             radio4.setText(a.get(3).getText());
             
         }
-//        radios.;
+        radios.getSelectedToggle().setSelected(false);
+        buttonEnviar.setDisable(false);
     }
     
+    public void setUsuario(User user){
+        usuario = user;
+    }
+
+    @FXML
+    private void getSessionInfo(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sesiones");
+        alert.setHeaderText("Sesiones previas");
+        alert.setContentText(usuario.getSessions().toString());
+        alert.showAndWait();
+        
+       
+    }
     
     
 }

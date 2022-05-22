@@ -44,7 +44,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
 import model.Navegacion;
 import model.User;
-import poiupv.Transfer.*;
+
 
 /**
  * FXML Controller class
@@ -78,7 +78,10 @@ public class FXMLEditarPerfilController implements Initializable {
     private DatePicker datepicker;
     @FXML
     private Button buttonConfirmar;
-    Transfer transfer = new Transfer();
+   
+    User usuario;
+    @FXML
+    private Label labperfil;
    
 
     /**
@@ -91,9 +94,9 @@ public class FXMLEditarPerfilController implements Initializable {
         } catch (NavegacionDAOException ex) {
             java.util.logging.Logger.getLogger(FXMLoginController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+//        tfNombre.setText(usuario.getNickName());
         
-        tfNombre.setText(transfer.getUser());
-        
+       
         
         
         // Formato -> https://acodigo.blogspot.com/2017/08/datepicker-control-javafx-para-manejar.html
@@ -116,12 +119,12 @@ public class FXMLEditarPerfilController implements Initializable {
         datepicker.setShowWeekNumbers(false);
         
         
-        String user = transfer.getUser();
+       
 //        String user = t.toString();
-        System.out.println(user);
+        //System.out.println(usuario);
         
-        User pr = t.getUser(user);
-        System.out.println(pr);
+        
+      
         
         //System.out.println(pr.toString());
     }    
@@ -134,10 +137,15 @@ public class FXMLEditarPerfilController implements Initializable {
         alert.setContentText("¿Seguro que quieres cerrar la sesión?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
+//            Session e = usuario.getSession
+//            usuario.getSessions().add(e);
             
             loadStage("/FXML/FXMLLogIn.fxml", event);
+            
+            
         } else {
             System.out.println("CANCEL");
+            
         }
         
         
@@ -186,36 +194,7 @@ public class FXMLEditarPerfilController implements Initializable {
         });
     }
     
-    private void closebackuptaskandshowmaintask(Event event) throws Exception {
-        // Decalaration of Variables
-        final Stage stage, stage1;
-        FXMLLoader pane;
-        Parent taskselectwindow;
-        String eventstring;
-
-        // Execution Block
-        eventstring = event.getEventType().toString();
-        if ("ACTION".equals(eventstring)) {
-            stage = (Stage) labelCerrarSesion.getScene().getWindow();
-            stage.close();
-        } else if ("WINDOW_CLOSE_REQUEST".equals(eventstring)) {
-            event.consume();
-            stage = (Stage) event.getSource();
-            stage.close();
-        }
-        pane = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
-        taskselectwindow = (Parent) pane.load();
-        stage1 = new Stage();
-        stage1.setScene(new Scene(taskselectwindow));
-        stage1.setTitle("LogIn");
-        stage1.show();
-}
-
-    @FXML
-    private void atras(ActionEvent event) {
-         Stage stage = (Stage) buttonAtras.getScene().getWindow();
-         stage.close();
-    }
+    
 
     @FXML
     private void acercaDe(MouseEvent event) {
@@ -272,5 +251,25 @@ public class FXMLEditarPerfilController implements Initializable {
     private void confirmChanges(ActionEvent event) {
     }
     
-//    public void 
+    public void setUsuario(User user){
+        usuario = user;
+        imageviewAvatar.setImage(usuario.getAvatar());
+//        tfNombre.setText(usuario.getNickName());
+        System.out.println(usuario);
+    }
+    
+    public void setTfs(){
+        tfNombre.setText(usuario.getNickName());
+    }
+
+    @FXML
+    private void setperfil(MouseEvent event) {
+        
+        System.out.println(usuario);
+    }
+
+    @FXML
+    private void atras(MouseEvent event) throws IOException {
+        loadStage("/FXML/FXMLDocument.fxml", event);
+    }
 }

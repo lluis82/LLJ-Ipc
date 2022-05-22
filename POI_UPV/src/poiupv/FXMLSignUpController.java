@@ -387,8 +387,8 @@ public class FXMLSignUpController implements Initializable {
                 t.registerUser(eusername.textProperty().getValueSafe(), eemail.textProperty().getValueSafe(),
                         epassword.textProperty().getValueSafe(), avatar, datePicker.getValue());
             }
-            transfer.setUser(eusername.textProperty().getValueSafe());
-            loadStage("/FXML/FXMLDocument.fxml", event);
+            
+            loadStage("/FXML/FXMLLogIn.fxml", event);
         }
         
         eemail.textProperty().setValue("");

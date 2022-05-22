@@ -185,9 +185,9 @@
                   </VBox>
                   <HBox layoutX="8.0" layoutY="50.0" prefHeight="28.0" prefWidth="575.0" spacing="15.0">
                      <children>
-                        <Label />
                         <Button fx:id="buttonListProblems" maxWidth="70.0" mnemonicParsing="false" onAction="#SelectProblem" prefWidth="70.0" text="List" />
                         <Button fx:id="buttonRandom" maxWidth="70.0" mnemonicParsing="false" onAction="#getRandomProblem" prefWidth="70.0" text="Random" />
+                        <Button fx:id="buttonSession" layoutX="95.0" layoutY="10.0" maxWidth="70.0" mnemonicParsing="false" onAction="#getSessionInfo" prefWidth="70.0" text="Session" />
                      </children>
                   </HBox>
                   <HBox layoutX="8.0" layoutY="96.0" prefHeight="182.0" prefWidth="575.0">
@@ -208,7 +208,7 @@
                               <RadioButton fx:id="radio3" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" toggleGroup="$radios" />
                               <RadioButton fx:id="radio4" layoutX="10.0" layoutY="45.0" mnemonicParsing="false" toggleGroup="$radios" />
                               <Button fx:id="buttonEnviar" mnemonicParsing="false" onAction="#enviarRespuesta" text="Check" />
-                              <Label fx:id="pruebaAns" text="Label" />
+                              <Label fx:id="pruebaAns" />
                            </children>
                         </VBox>
                      </children>
@@ -218,8 +218,8 @@
                         <ListView fx:id="listviewProblemas" prefHeight="227.0" prefWidth="511.0" />
                         <VBox alignment="BOTTOM_LEFT" prefHeight="227.0" prefWidth="109.0" spacing="5.0">
                            <children>
-                              <Button fx:id="buttonPreview" maxHeight="26.0" maxWidth="70.0" mnemonicParsing="false" onAction="#previewProblempreviewProblem" prefHeight="26.0" prefWidth="70.0" text="Preview" />
-                              <Button fx:id="buttonSelect" maxHeight="26.0" maxWidth="70.0" mnemonicParsing="false" onAction="#selectProblem" prefHeight="26.0" prefWidth="70.0" text="Select" />
+                              <Button fx:id="buttonPreview" disable="true" maxHeight="26.0" maxWidth="70.0" mnemonicParsing="false" onAction="#previewProblempreviewProblem" prefHeight="26.0" prefWidth="70.0" text="Preview" />
+                              <Button fx:id="buttonSelect" disable="true" maxHeight="26.0" maxWidth="70.0" mnemonicParsing="false" onAction="#selectProblem" prefHeight="26.0" prefWidth="70.0" text="Select" />
                            </children>
                         </VBox>
                      </children>
