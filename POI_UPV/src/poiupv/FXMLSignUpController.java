@@ -54,10 +54,11 @@ import javafx.stage.WindowEvent;
 import javafx.util.converter.LocalDateStringConverter;
 import javax.swing.JFrame;
 import model.Navegacion;
+import model.User;
 import static model.User.checkEmail;
 import static model.User.checkNickName;
 import static model.User.checkPassword;
-import poiupv.Transfer.*;
+
 
 
 /**
@@ -111,7 +112,7 @@ public class FXMLSignUpController implements Initializable {
     @FXML
     private ImageView imageAvatar;
    
-    Transfer transfer = new Transfer();
+   
     
     
     /**
@@ -264,6 +265,8 @@ public class FXMLSignUpController implements Initializable {
         } catch (NavegacionDAOException ex) {
             java.util.logging.Logger.getLogger(FXMLoginController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+      
         
     } 
    

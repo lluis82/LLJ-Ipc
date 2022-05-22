@@ -8,6 +8,7 @@ package poiupv;
 import DBAccess.NavegacionDAOException;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -41,6 +42,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
@@ -72,6 +75,7 @@ import javafx.util.Duration;
 import model.Answer;
 import model.Navegacion;
 import model.Problem;
+import model.Session;
 import model.User;
 import poiupv.Poi;
 
@@ -195,9 +199,15 @@ public class FXMLDocumentController implements Initializable {
     List<Answer> a;
     int aciertos;
     int fallos;
-    User usuario;
+    User usuarioLogeado;
     @FXML
     private Button buttonSession;
+    @FXML
+    private DatePicker datePickerStats;
+    @FXML
+    private Label labelAciertos;
+    @FXML
+    private Label labelFallos;
     
     
     @FXML
@@ -297,7 +307,7 @@ public class FXMLDocumentController implements Initializable {
         
         rnd = new Random();
         //lvProblemas.setItems(listaObservable);
-     
+        usuarioLogeado = FXMLoginController.usuarioLogeado;
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
         
 //        linePainting.setOnMouseEntered(event -> {
@@ -307,6 +317,16 @@ public class FXMLDocumentController implements Initializable {
 //        colorPicker.setOnAction(event -> {
 //            linePainting.setFill(colorPicker.getValue());
 //        });
+        datePickerStats.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    LocalDate today = LocalDate.now();
+                    setDisable(empty || date.compareTo(today) >= 0);
+                }
+            };
+        });
 
     }
 
@@ -1046,18 +1066,27 @@ public class FXMLDocumentController implements Initializable {
         buttonEnviar.setDisable(false);
     }
     
-    public void setUsuario(User user){
-        usuario = user;
-    }
+    
 
     @FXML
     private void getSessionInfo(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sesiones");
-        alert.setHeaderText("Sesiones previas");
-        alert.setContentText(usuario.getSessions().toString());
-        alert.showAndWait();
-        
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert.setTitle("Sesiones");
+//        alert.setHeaderText("Sesiones previas");
+//        alert.setContentText(usuarioLogeado.getSessions().toString());
+//        alert.showAndWait();
+        int a=0;
+        int f=0;
+       List<Session> l = usuarioLogeado.getSessions();
+       LocalDate ld = datePickerStats.getValue();
+       for(int v=0;v<l.size();v++){
+           if(l.get(v).getLocalDate().isBefore(ld)){
+             a += l.get(v).getHits();
+             f += l.get(v).getFaults();
+           }
+       }
+       labelAciertos.setText("Aciertos: "+ a);
+       labelFallos.setText("Fallos: "+ f);
        
     }
     

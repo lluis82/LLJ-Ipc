@@ -42,6 +42,8 @@ import model.User;
  */
 public class FXMLoginController implements Initializable {
 
+    static User usuarioLogeado;
+
     @FXML
     private Button buttonAccept;
     @FXML
@@ -118,18 +120,7 @@ public class FXMLoginController implements Initializable {
         }
         else {
             
-            User ususuusus = t.getUser(nick);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/FXMLEditarPerfil.fxml"));
-            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/FXML/FXMLDocument.fxml"));
-            loader.load();
-            loader2.load();
-            FXMLEditarPerfilController cont = loader.getController();
-            FXMLDocumentController cont2 = loader2.getController();
-            cont.setUsuario(ususuusus);
-            cont2.setUsuario(ususuusus);
-            
-            cont.setTfs();
-         
+            usuarioLogeado = t.getUser(nick);
             loadStage("/FXML/FXMLDocument.fxml", event);
             //System.out.println(ususuusus);
             

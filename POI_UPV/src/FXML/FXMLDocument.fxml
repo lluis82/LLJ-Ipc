@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -27,7 +28,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../CSS/estilos.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox prefHeight="760.0" prefWidth="978.0" stylesheets="@../CSS/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
    <children>
       <HBox id="hBoxBarra" alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -185,9 +186,8 @@
                   </VBox>
                   <HBox layoutX="8.0" layoutY="50.0" prefHeight="28.0" prefWidth="575.0" spacing="15.0">
                      <children>
-                        <Button fx:id="buttonListProblems" maxWidth="70.0" mnemonicParsing="false" onAction="#SelectProblem" prefWidth="70.0" text="List" />
-                        <Button fx:id="buttonRandom" maxWidth="70.0" mnemonicParsing="false" onAction="#getRandomProblem" prefWidth="70.0" text="Random" />
-                        <Button fx:id="buttonSession" layoutX="95.0" layoutY="10.0" maxWidth="70.0" mnemonicParsing="false" onAction="#getSessionInfo" prefWidth="70.0" text="Session" />
+                        <Button fx:id="buttonListProblems" maxWidth="80.0" mnemonicParsing="false" onAction="#SelectProblem" prefWidth="80.0" text="List" />
+                        <Button fx:id="buttonRandom" maxWidth="80.0" mnemonicParsing="false" onAction="#getRandomProblem" prefWidth="80.0" text="Random" />
                      </children>
                   </HBox>
                   <HBox layoutX="8.0" layoutY="96.0" prefHeight="182.0" prefWidth="575.0">
@@ -197,20 +197,48 @@
                   </HBox>
                   <HBox layoutX="13.0" layoutY="286.0" prefHeight="131.0" prefWidth="557.0">
                      <children>
-                        <VBox prefHeight="131.0" prefWidth="534.0" spacing="5.0">
+                        <HBox prefHeight="141.0" prefWidth="562.0">
                            <children>
-                              <RadioButton fx:id="radio1" mnemonicParsing="false">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="radios" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="radio2" mnemonicParsing="false" toggleGroup="$radios" />
-                              <RadioButton fx:id="radio3" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" toggleGroup="$radios" />
-                              <RadioButton fx:id="radio4" layoutX="10.0" layoutY="45.0" mnemonicParsing="false" toggleGroup="$radios" />
-                              <Button fx:id="buttonEnviar" mnemonicParsing="false" onAction="#enviarRespuesta" text="Check" />
-                              <Label fx:id="pruebaAns" />
+                              <VBox prefHeight="141.0" prefWidth="380.0" spacing="5.0">
+                                 <children>
+                                    <RadioButton fx:id="radio1" mnemonicParsing="false">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="radios" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="radio2" mnemonicParsing="false" toggleGroup="$radios" />
+                                    <RadioButton fx:id="radio3" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" toggleGroup="$radios" />
+                                    <RadioButton fx:id="radio4" layoutX="10.0" layoutY="45.0" mnemonicParsing="false" toggleGroup="$radios" />
+                                    <Button fx:id="buttonEnviar" mnemonicParsing="false" onAction="#enviarRespuesta" text="Check" />
+                                    <Label fx:id="pruebaAns" />
+                                 </children>
+                              </VBox>
+                              <HBox prefHeight="141.0" prefWidth="356.0" spacing="5.0">
+                                 <children>
+                                    <VBox prefHeight="141.0" prefWidth="309.0">
+                                       <children>
+                                          <HBox prefHeight="41.0" prefWidth="267.0">
+                                             <children>
+                                                <DatePicker fx:id="datePickerStats" />
+                                                <Button fx:id="buttonSession" maxWidth="70.0" mnemonicParsing="false" onAction="#getSessionInfo" prefWidth="70.0" text="Stats" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="265.0">
+                                                   <children>
+                                                      <Label fx:id="labelAciertos" />
+                                                      <Label fx:id="labelFallos" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
                   </HBox>
                   <HBox layoutX="8.0" layoutY="436.0" prefHeight="227.0" prefWidth="557.0">
