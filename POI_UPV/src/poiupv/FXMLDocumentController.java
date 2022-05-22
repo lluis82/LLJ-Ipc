@@ -337,7 +337,6 @@ public class FXMLDocumentController implements Initializable {
                 + "         X: " + (int) event.getX() + ",          Y: " + (int) event.getY());
     }
 
-    @FXML
     private void cerrarAplicacion(ActionEvent event) {
         // Lanza aviso solamente si el usuario está realizando un test o el mapa tiene algo dibujado/escrito en él
         /* Solo si está en mitad de un test || si el mapa tiene algo dibujado/escrito */
@@ -355,7 +354,6 @@ public class FXMLDocumentController implements Initializable {
 //        }
     }
     
-    @FXML
     private void acercaDe(ActionEvent event) {
         Alert mensaje= new Alert(Alert.AlertType.INFORMATION);
         mensaje.setTitle("Acerca de");

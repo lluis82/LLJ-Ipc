@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="826.0" prefWidth="503.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
+<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="872.0" prefWidth="508.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLSignUpController">
    <center>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="610.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -119,6 +119,13 @@
       </HBox>
    </center>
    <top>
-      <HBox id="top" prefHeight="116.0" prefWidth="938.0" BorderPane.alignment="CENTER" />
+      <HBox id="top" alignment="CENTER" prefHeight="116.0" prefWidth="938.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/signup.png" />
+               </image>
+            </ImageView>
+         </children></HBox>
    </top>
 </BorderPane>

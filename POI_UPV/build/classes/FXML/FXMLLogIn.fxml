@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="562.0" prefWidth="419.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLoginController">
+<BorderPane id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="562.0" prefWidth="419.0" stylesheets="@../CSS/LogIn+Signup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLoginController">
    <center>
       <VBox prefHeight="381.0" prefWidth="297.0" BorderPane.alignment="CENTER">
          <children>
@@ -89,7 +89,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="213.0" prefWidth="475.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="58.0" prefWidth="120.0" text="Don't have an account?" textAlignment="CENTER" wrapText="true">
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="158.0" text="Don't have an account?" textAlignment="CENTER" wrapText="true">
                            <VBox.margin>
                               <Insets top="60.0" />
                            </VBox.margin>
@@ -113,6 +113,13 @@
       </VBox>
    </center>
    <top>
-      <HBox id="top" prefHeight="118.0" prefWidth="484.0" BorderPane.alignment="CENTER" />
+      <HBox id="top" alignment="CENTER" prefHeight="118.0" prefWidth="484.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/Login.png" />
+               </image>
+            </ImageView>
+         </children></HBox>
    </top>
 </BorderPane>
