@@ -79,7 +79,7 @@ public class FXMLEditarPerfilController implements Initializable {
     @FXML
     private Button buttonConfirmar;
    
-    User usuario;
+    User usuarioLogeado;
     @FXML
     private Label labperfil;
    
@@ -118,14 +118,9 @@ public class FXMLEditarPerfilController implements Initializable {
         
         datepicker.setShowWeekNumbers(false);
         
-        
-       
+        usuarioLogeado = FXMLoginController.usuarioLogeado;
 //        String user = t.toString();
         //System.out.println(usuario);
-        
-        
-      
-        
         //System.out.println(pr.toString());
     }    
 
@@ -251,22 +246,6 @@ public class FXMLEditarPerfilController implements Initializable {
     private void confirmChanges(ActionEvent event) {
     }
     
-    public void setUsuario(User user){
-        usuario = user;
-        imageviewAvatar.setImage(usuario.getAvatar());
-//        tfNombre.setText(usuario.getNickName());
-        System.out.println(usuario);
-    }
-    
-    public void setTfs(){
-        tfNombre.setText(usuario.getNickName());
-    }
-
-    @FXML
-    private void setperfil(MouseEvent event) {
-        
-        System.out.println(usuario);
-    }
 
     @FXML
     private void atras(MouseEvent event) throws IOException {

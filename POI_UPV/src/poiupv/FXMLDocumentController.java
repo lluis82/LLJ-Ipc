@@ -308,6 +308,7 @@ public class FXMLDocumentController implements Initializable {
         rnd = new Random();
         //lvProblemas.setItems(listaObservable);
         usuarioLogeado = FXMLoginController.usuarioLogeado;
+        
         //Stage.setOnCloseRequest(this::cerrarAplicacion);
         
 //        linePainting.setOnMouseEntered(event -> {
